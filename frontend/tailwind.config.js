@@ -4,8 +4,10 @@ module.exports = {
 	theme: {
 		colors: {
 			pink: '#F46B94',
+			white: '#FFFFFF',
 			'dark-blue': '#2A4AC8',
-			'light-blue': '#8AA2FF'
+			'light-blue': '#8AA2FF',
+			'light-pink': '#F395B1'
 		},
 		fontFamily: {
 			Nunito: [ 'Nunito' ]

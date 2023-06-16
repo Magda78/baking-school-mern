@@ -12,7 +12,7 @@ function Navbar() {
 				<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">Galery</h2>
 				<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">Contact Us</h2>
 				<ShoppingCartOutlinedIcon className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue"/>
-				<button className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px]">
+				<button className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink">
 					Log In
 				</button>
 			</div>
