@@ -2,7 +2,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 function Navbar() {
 	return (
-		<section className="px-[154px] py-[45px] flex flex-row items-center justify-between">
+		<section className="px-[127px] py-[45px] flex flex-row items-center justify-between">
 			<div>
 				<img src="/img/logo.png" alt="logo" />
 			</div>
