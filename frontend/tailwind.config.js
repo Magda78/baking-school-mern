@@ -3,11 +3,20 @@ module.exports = {
 	content: [ './src/**/*.{js,jsx,ts,tsx}' ],
 	theme: {
 		screens: {
-			sm: '640px', // Small screens (up to 640px)
-			md: '768px', // Medium screens (up to 768px)
-			lg: '1024px', // Large screens (up to 1024px)
-			xl: '1280px', // Extra-large screens (up to 1280px)
-			'2xl': '1440px' // Custom screen size (up to 1440px)
+			'2xl': { max: '1440px' },
+			// => @media (max-width: 1535px) { ... }
+
+			xl: { max: '1280px' },
+			// => @media (max-width: 1279px) { ... }
+
+			lg: { max: '1024px' },
+			// => @media (max-width: 1023px) { ... }
+
+			md: { max: '768px' },
+			// => @media (max-width: 767px) { ... }
+
+			sm: { max: '639px' }
+			// => @media (max-width: 639px) { ... }
 		},
 		colors: {
 			pink: '#F46B94',
