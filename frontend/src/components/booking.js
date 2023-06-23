@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 function Booking() {
 	const [ startDate, setStartDate ] = useState(new Date());
 	return (
-		<section className="px-[47px] py-[41px]">
+		<section className="px-[47px] py-[48px]">
 			<form className="flex flex-col justify-between">
 				<div className="flex flex-row justify-between mb-[50px]">
 					<div className="flex flex-col w-96">

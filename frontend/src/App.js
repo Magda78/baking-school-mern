@@ -4,6 +4,7 @@ import Hero from './components/hero';
 import Booking from './components/booking';
 import Programs from './components/programs';
 import About from './components/about';
+import Galery from './components/galery';
 
 function App() {
 	const [ screenSize, setScreenSize ] = useState('');
@@ -29,13 +30,14 @@ function App() {
 		};
 	}, []);
 	return (
-		<div className="max-w-[1440px] relative">
+		<div className="max-w-[1440px] relative flex flex-col justify-center">
 			{console.log('overlay', overlay)}
 			<Navbar screenSize={screenSize} setOverlay={setOverlay} />
 			<Hero />
 			<Booking />
 			<Programs screenSize={screenSize} />
 			<About screenSize={screenSize}/>
+      <Galery />
 			{overlay ? (
 				<div className="bg-white w-[85%] h-screen py-[45px] pr-[127px]  absolute top-[140px] right-0 flex flex-col items-end leading-6">
 					<h2 className="font-bold text-base font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">

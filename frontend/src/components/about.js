@@ -8,7 +8,7 @@ function About({ screenSize }) {
 		<section>
 			{screenSize === 'sm' || screenSize === 'md' || screenSize === 'lg'? (
 				<div
-					className="px-[127px] py-[45px] flex flex-col justify-center items-center"
+					className="px-[127px] py-[48px] flex flex-col justify-center items-center"
 					style={{ ...containerStyle, height: '100%' }}
 				>
 					<div className="flex  flex-col justify-center items-center">
@@ -28,7 +28,7 @@ function About({ screenSize }) {
 				</div>
 			) : (
 				<div
-					className="pl-[127px] py-[45px] flex flex-row items-center justify-between"
+					className="pl-[127px] py-[48px] flex flex-row items-center justify-between"
 					style={{ ...containerStyle, height: '100%' }}
 				>
 					<div className="flex flex-1 mr-10 text-base font-Nunito text-very-dark-blue font-normal leading-8">
