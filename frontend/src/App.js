@@ -7,6 +7,7 @@ import About from './components/about';
 
 function App() {
 	const [ screenSize, setScreenSize ] = useState('');
+	const [ overlay, setOverlay ] = useState(false);
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= 640) {
@@ -28,13 +29,32 @@ function App() {
 		};
 	}, []);
 	return (
-		<div className="max-w-[1440px]">
-			<Navbar />
+		<div className="max-w-[1440px] relative">
+			{console.log('overlay', overlay)}
+			<Navbar screenSize={screenSize} setOverlay={setOverlay} />
 			<Hero />
 			<Booking />
-			{console.log(screenSize)}
 			<Programs screenSize={screenSize} />
 			<About />
+			{overlay ? (
+				<div className="bg-white w-[85%] h-screen py-[45px] pr-[127px]  absolute top-[140px] right-0 flex flex-col items-end leading-6">
+					<h2 className="font-bold text-base font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
+						Home
+					</h2>
+					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+						Programs
+					</h2>
+					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+						Galery
+					</h2>
+					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+						Contact Us
+					</h2>
+					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+						Log In
+					</h2>
+				</div>
+			) : null}
 		</div>
 	);
 }
