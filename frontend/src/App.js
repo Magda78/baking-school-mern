@@ -35,7 +35,7 @@ function App() {
 			<Hero />
 			<Booking />
 			<Programs screenSize={screenSize} />
-			<About />
+			<About screenSize={screenSize}/>
 			{overlay ? (
 				<div className="bg-white w-[85%] h-screen py-[45px] pr-[127px]  absolute top-[140px] right-0 flex flex-col items-end leading-6">
 					<h2 className="font-bold text-base font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
