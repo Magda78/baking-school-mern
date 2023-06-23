@@ -6,7 +6,7 @@ function About({ screenSize }) {
 	};
 	return (
 		<section>
-			{screenSize === 'sm' || screenSize === 'md' ? (
+			{screenSize === 'sm' || screenSize === 'md' || screenSize === 'lg'? (
 				<div
 					className="px-[127px] py-[45px] flex flex-col justify-center items-center"
 					style={{ ...containerStyle, height: '100%' }}
