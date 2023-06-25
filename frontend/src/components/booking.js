@@ -7,7 +7,7 @@ function Booking() {
 	return (
 		<section className="px-[47px] py-[48px]">
 			<form className="flex flex-col justify-between">
-				<div className="flex flex-row justify-between mb-[50px]">
+				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
 					<div className="flex flex-col w-96">
 						<label
 							htmlFor="program"
@@ -35,7 +35,7 @@ function Booking() {
 							</select>
 						</div>
 					</div>
-					<div className="flex flex-col w-52">
+					<div className="flex flex-col w-52 sm:mt-6 md:mt-6">
 						<label
 							htmlFor="program"
 							id="program"
@@ -62,8 +62,8 @@ function Booking() {
 							</select>
 						</div>
 					</div>
-					<div>
-						<label htmlFor="date" className="font-semibold text-lg font-Nunito text-dark-blue">
+					<div className="sm:mt-6 md:mt-6">
+						<label htmlFor="date" className="font-semibold text-lg font-Nunito text-dark-blue ">
 							Choose a Date:
 						</label>
 						<div className="py-3 px-6 bg-very-light-blue pr-6 mt-[27px]">
@@ -79,7 +79,7 @@ function Booking() {
 				<div className="flex justify-end">
 					<button
 						type="submit"
-						className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+						className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
 					>
 						Schedule Class
 					</button>
