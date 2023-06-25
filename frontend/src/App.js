@@ -36,7 +36,7 @@ function App() {
 		<div className="max-w-[1440px] relative flex flex-col justify-center">
 			{console.log('overlay', overlay)}
 			<Navbar screenSize={screenSize} setOverlay={setOverlay} />
-			<Hero />
+			<Hero screenSize={screenSize}/>
 			<Booking />
 			<Programs screenSize={screenSize} />
 			<About screenSize={screenSize}/>
