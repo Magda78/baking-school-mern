@@ -16,7 +16,7 @@ function Navbar({ screenSize, setOverlay }) {
 		}
 	};
 	return (
-		<section className="px-[127px] py-[48px] flex flex-row items-center justify-between">
+		<section className="px-[127px] py-12 flex flex-row items-center justify-between">
 			<div>
 				<img src="/img/logo.png" alt="logo" />
 			</div>
