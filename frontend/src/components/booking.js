@@ -8,7 +8,7 @@ function Booking() {
 		<section className="px-[47px] py-[48px]">
 			<form className="flex flex-col justify-between">
 				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
-					<div className="flex flex-col w-96">
+					<div className="flex flex-col w-96 sm:w-full md:w-full">
 						<label
 							htmlFor="program"
 							id="program"
@@ -35,7 +35,7 @@ function Booking() {
 							</select>
 						</div>
 					</div>
-					<div className="flex flex-col w-52 sm:mt-6 md:mt-6">
+					<div className="flex flex-col w-52 sm:mt-6 md:mt-6 sm:w-full md:w-full">
 						<label
 							htmlFor="program"
 							id="program"
@@ -62,7 +62,7 @@ function Booking() {
 							</select>
 						</div>
 					</div>
-					<div className="sm:mt-6 md:mt-6">
+					<div className="sm:mt-6 md:mt-6 sm:w-full md:w-full">
 						<label htmlFor="date" className="font-semibold text-lg font-Nunito text-dark-blue ">
 							Choose a Date:
 						</label>

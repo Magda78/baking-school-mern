@@ -1,10 +1,10 @@
 function Contact() {
 	return (
-		<section className="flex flex-col justify-center py-[48px] mb-[137px]">
-			<form className="flex flex-col justify-between items-center">
-				<div className="flex flex-col justify-between items-center">
-					<div className="flex flex-row ">
-						<div className="flex flex-col mr-24 flex-1">
+		<section className="flex flex-col justify-center py-[48px]  sm:px-[47px] md:px-[47px]">
+			<form className="flex flex-col justify-between items-center sm:items-start">
+				<div className="flex flex-col justify-between items-center sm:items-start sm:w-full">
+					<div className="flex flex-row sm:flex-col sm:w-full">
+						<div className="flex flex-col mr-24 flex-1  sm:mr-0">
 							<label for="username" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								First Name:
 							</label>
@@ -18,7 +18,7 @@ function Contact() {
 							/>
 						</div>
 
-						<div className="flex flex-col flex-1">
+						<div className="flex flex-col flex-1 sm:w-full">
 							<label for="lastname" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Last Name:
 							</label>
@@ -32,8 +32,8 @@ function Contact() {
 							/>
 						</div>
 					</div>
-					<div className="flex flex-row">
-						<div className="flex flex-col mr-24">
+					<div className="flex flex-row sm:flex-col sm:w-full">
+						<div className="flex flex-col mr-24 sm:mr-0 ">
 							<label for="email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Email:
 							</label>
@@ -47,7 +47,7 @@ function Contact() {
 							/>
 						</div>
 
-						<div className="flex flex-col">
+						<div className="flex flex-col sm:w-full">
 							<label for="phone" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Phone number:
 							</label>
@@ -63,7 +63,7 @@ function Contact() {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col w-[518px] justify-center">
+				<div className="flex flex-col w-[518px] justify-center sm:w-full">
 					<label for="msg" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Message:
 					</label>
@@ -75,7 +75,7 @@ function Contact() {
 						className="h-[178px] border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 					/>
 				</div>
-				<div className="mt-16 w-[518px] flex flex-row justify-end ">
+				<div className="w-[518px] flex flex-row justify-end sm:w-full">
 					<button
 						type="submit"
 						className="font-bold text-sm font-Nunito py-6 px-10 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"

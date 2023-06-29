@@ -13,7 +13,7 @@ function Hero() {
 				<h1 className="font-bold text-8xl font-Nunito uppercase text-dark-blue leading-[90px]">
 					B<span className="text-pink">a</span>k<span className="text-pink">e</span> with us
 				</h1>
-				<p className="mt-[30px] mb-[56px] font-normal text-2xl font-Nunito text-very-dark-blue">
+				<p className="mt-[30px] mb-[56px] font-normal text-2xl font-Nunito text-very-dark-blue leading-relaxed ">
 					Embark on a delectable journey of culinary mastery as you unlock the secrets of baking and discover
 					the artistry that lies within each delicious creation at our renowned baking school.
 				</p>

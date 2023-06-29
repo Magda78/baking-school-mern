@@ -12,11 +12,11 @@ function Navbar({ screenSize, setOverlay }) {
 			setOverlay(true);
 		} else {
 			setHamburger(true);
-            setOverlay(false)
+			setOverlay(false);
 		}
 	};
 	return (
-		<section className="px-[127px] py-12 flex flex-row items-center justify-between">
+		<section className="px-[127px] py-12 flex flex-row items-center justify-between sm:px-[47px] md:px-[47px]">
 			<div>
 				<img src="/img/logo.png" alt="logo" />
 			</div>
