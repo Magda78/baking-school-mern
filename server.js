@@ -1,8 +1,10 @@
-require('dotenv').config({ path: '.env' });
+require('dotenv').config({ path: '.env.local' });
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const OrdersRoute = require('./routes/orders')
+
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -28,8 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-	res.send('Hello World!');
-});
+app.use(OrdersRoute);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
