@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const ordersController = require('../controllers/orders-controllers');
+const getOrders = require('../controllers/orders-controllers');
+const createOrder = require('../controllers/orders-controllers');
+const getOrdersById = require('../controllers/orders-controllers');
 
-router.get('/orders', ordersController.getOrders);
+router.get('/orders', getOrders.getOrders);
+router.post('/orders', createOrder.createOrder);
+router.get('/orders/user/:id', getOrdersById.getOrdersById)
 
 module.exports = router;
