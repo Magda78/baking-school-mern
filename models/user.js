@@ -7,7 +7,7 @@ const userSchema = new Schema(
 		lastName: { type: String, require: true },
 		email: { type: String, require: true, unique: true },
 		password: { type: String, require: true, minlengt: 6 },
-		orders: []
+		orders:[{ type: mongoose.Types.ObjectId, require: true, ref: 'Order' }]
 	},
 	{
 		timestamps: true

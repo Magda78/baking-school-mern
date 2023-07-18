@@ -1,5 +1,8 @@
 const { validationResult } = require('express-validator');
 const Order = require('../models/order');
+const User = require('../models/user');
+const HttpError = require('../models/http-error');
+const mongoose = require('mongoose');
 
 const getOrders = async (req, res, next) => {
 	let orders;
@@ -42,8 +45,25 @@ const createOrder = async (req, res, next) => {
 		creator
 	});
 
+	let user;
 	try {
-		await createOrder.save();
+		user = await User.findById(creator);
+	} catch (err) {
+		const error = new HttpError('Could not add order to db', 500);
+		return next(error);
+	}
+	if (!user) {
+		const error = new HttpError('User do not exisit', 404);
+		return next(error);
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await createOrder.save({ session: sess });
+		user.orders.push(createOrder);
+		await user.save({ session: sess });
+		sess.commitTransaction();
 	} catch (error) {
 		console.log('cant create order');
 		res.status(500).json({ message: error });
