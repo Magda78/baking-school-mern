@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const OrdersRoute = require('./routes/orders')
-
+const OrdersRoute = require('./routes/orders');
+const UsersRoute = require('./routes/users');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -31,5 +31,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use(OrdersRoute);
+app.use(UsersRoute);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
