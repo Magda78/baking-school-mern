@@ -3,18 +3,23 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import React, { useState } from 'react';
 
-function Navbar({ screenSize, setOverlay }) {
+function Navbar({ screenSize, setNavbar, setOverlay }) {
 	const [ hamburger, setHamburger ] = useState(true);
 
 	const hamburgerMenuHandler = () => {
 		if (hamburger === true) {
 			setHamburger(false);
-			setOverlay(true);
+			setNavbar(true);
 		} else {
 			setHamburger(true);
-			setOverlay(false);
+			setNavbar(false);
 		}
 	};
+
+	const overlayHandler = () => {
+		setOverlay(true)
+	}
+
 	return (
 		<section className="px-[127px] py-12 flex flex-row items-center justify-between sm:px-[47px] md:px-[47px]">
 			<div>
@@ -36,8 +41,8 @@ function Navbar({ screenSize, setOverlay }) {
 						Contact Us
 					</h2>
 					<ShoppingCartOutlinedIcon className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue" />
-					<button className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink">
-						Log In
+					<button className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink" onClick={overlayHandler}>
+						Sign Up
 					</button>
 				</div>
 			) : hamburger ? (
