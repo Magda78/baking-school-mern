@@ -30,7 +30,8 @@ module.exports = {
 			'lighter-blue': '#C7D2FC',
 			'very-light-blue': '#F0F3FF',
 			'light-pink': '#F395B1',
-			grayish: '#A4ABC4'
+			grayish: '#A4ABC4',
+			'red-error': '#FF9494'
 		},
 		fontFamily: {
 			Nunito: [ 'Nunito' ]

@@ -41,7 +41,7 @@ function App() {
 				</Routes>
 				<Footer />
 				{overlay ? (
-					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-screen absolute top-[175px] right-0 flex justify-center p-10">
+					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">
 						<SignUp setOverlay={setOverlay} />
 					</div>
 				) : null}

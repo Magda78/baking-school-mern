@@ -1,12 +1,32 @@
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 function SignUp({ setOverlay }) {
 	const closeOverlayHandler = () => {
 		setOverlay(false);
 	};
+	const formik = useFormik({
+		initialValues: {
+			username: '',
+			lastname: '',
+			email: '',
+			password: ''
+		},
+		validationSchema: Yup.object({
+			username: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
+			lastname: Yup.string().required('Required'),
+			email: Yup.string().email('Invalid email address').required('Required'),
+			password: Yup.string().max(15, 'Must be 15 characters or less').required('Required')
+		}),
+		onSubmit: (values) => {
+			console.log(values);
+		}
+	});
 	return (
-		<section className="bg-white p-10 flex w-[50%] justify-center items-center">
-			<form className="flex flex-col w-full h-full">
+		<section className="bg-white p-10 w-[50%] h-[600px] flex justify-center items-center rounded">
+			<form onSubmit={formik.handleSubmit} className="flex flex-col w-full h-full">
 				<div className="flex flex-col">
-					<label for="username" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+					<label htmlFor="username" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						First Name:
 					</label>
 					<input
@@ -15,11 +35,19 @@ function SignUp({ setOverlay }) {
 						name="username"
 						aria-required="true"
 						aria-label="username"
-						className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.username}
+						className={`${formik.errors.username
+							? 'mb-2'
+							: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 					/>
+					{formik.touched.username && formik.errors.username ? (
+						<p className="text-xs text-red-error mb-2">{formik.errors.username}</p>
+					) : null}
 				</div>
 				<div className="flex flex-col">
-					<label for="lastname" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+					<label htmlFor="lastname" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Last Name:
 					</label>
 					<input
@@ -28,11 +56,19 @@ function SignUp({ setOverlay }) {
 						name="lastname"
 						aria-required="true"
 						aria-label="lastname"
-						className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.lastname}
+						className={`${formik.errors.username
+							? 'mb-2'
+							: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 					/>
+					{formik.touched.lastname && formik.errors.lastname ? (
+						<p className="text-xs text-red-error mb-2">{formik.errors.lastname}</p>
+					) : null}
 				</div>
 				<div className="flex flex-col">
-					<label for="email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+					<label htmlFor="email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Email:
 					</label>
 					<input
@@ -41,11 +77,19 @@ function SignUp({ setOverlay }) {
 						name="email"
 						aria-required="true"
 						aria-label="email"
-						className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.email}
+						className={`${formik.errors.username
+							? 'mb-2'
+							: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 					/>
+					{formik.touched.email && formik.errors.email ? (
+						<p className="text-xs text-red-error mb-2">{formik.errors.email}</p>
+					) : null}
 				</div>
 				<div className="flex flex-col">
-					<label for="password" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+					<label htmlFor="password" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Password:
 					</label>
 					<input
@@ -54,14 +98,26 @@ function SignUp({ setOverlay }) {
 						name="password"
 						aria-required="true"
 						aria-label="password"
-						className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.password}
+						className={`${formik.errors.username
+							? 'mb-2'
+							: 'mb-8'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 					/>
+					{formik.touched.password && formik.errors.password ? (
+						<p className="text-xs text-red-error mb-2">{formik.errors.password}</p>
+					) : null}
 				</div>
-				<div className="flex justify-between">
-					<button className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink">
+				<div className="flex justify-between mt-4">
+					<button
+						type="submit"
+						className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+					>
 						Sign Up
 					</button>
 					<button
+						type="submit"
 						className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
 						onClick={closeOverlayHandler}
 					>

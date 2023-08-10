@@ -5,50 +5,50 @@ function Contact() {
 				<div className="flex flex-col justify-between items-center sm:items-start sm:w-full">
 					<div className="flex flex-row sm:flex-col sm:w-full">
 						<div className="flex flex-col mr-24 flex-1  sm:mr-0">
-							<label for="username" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+							<label htmlFor="userName" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								First Name:
 							</label>
 							<input
 								type="text"
-								id="username"
-								name="username"
+								id="userName"
+								name="userName"
 								aria-required="true"
-								aria-label="username"
+								aria-label="userName"
 								className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
 						</div>
 
 						<div className="flex flex-col flex-1 sm:w-full">
-							<label for="lastname" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+							<label htmlFor="lastName" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Last Name:
 							</label>
 							<input
 								type="text"
-								id="lastname"
-								name="lastname"
+								id="lastName"
+								name="lastName"
 								aria-required="true"
-								aria-label="lastname"
+								aria-label="lastName"
 								className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
 						</div>
 					</div>
 					<div className="flex flex-row sm:flex-col sm:w-full">
 						<div className="flex flex-col mr-24 sm:mr-0 ">
-							<label for="email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+							<label htmlFor="Email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Email:
 							</label>
 							<input
 								type="email"
-								id="email"
-								name="email"
+								id="Email"
+								name="Email"
 								aria-required="true"
-								aria-label="email"
+								aria-label="Email"
 								className="border-2 border-grayish rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
 						</div>
 
 						<div className="flex flex-col sm:w-full">
-							<label for="phone" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+							<label htmlFor="phone" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 								Phone number:
 							</label>
 							<input
@@ -64,7 +64,7 @@ function Contact() {
 					</div>
 				</div>
 				<div className="flex flex-col w-[518px] justify-center sm:w-full">
-					<label for="msg" className="font-bold text-base font-Nunito text-dark-blue mb-4">
+					<label htmlFor="msg" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Message:
 					</label>
 					<textarea
