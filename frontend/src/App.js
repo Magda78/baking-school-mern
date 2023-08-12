@@ -4,12 +4,15 @@ import Home from './pages/Home';
 import Auth from './components/auth';
 import Footer from './components/footer';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import LogIn from './components/logIn';
 import SignUp from './components/signUp';
 
 function App() {
 	const [ screenSize, setScreenSize ] = useState('');
 	const [ navbar, setNavbar ] = useState(false);
 	const [ overlay, setOverlay ] = useState(false);
+	const [ sign, setSign ] = useState(false);
+
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= 640) {
@@ -34,15 +37,19 @@ function App() {
 	return (
 		<div className="max-w-[1440px] relative flex flex-col justify-center ">
 			<BrowserRouter>
-				<Navbar screenSize={screenSize} setNavbar={setNavbar} setOverlay={setOverlay} />
+				<Navbar screenSize={screenSize} setNavbar={setNavbar} setOverlay={setOverlay} setSign={setSign} />
 				<Routes>
 					<Route path="/" element={<Home screenSize={screenSize} />} />
 					<Route path="/auth" element={<Auth />} />
 				</Routes>
 				<Footer />
-				{overlay ? (
+				{overlay && sign ? (
 					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">
-						<SignUp setOverlay={setOverlay} />
+						<SignUp setOverlay={setOverlay}/>
+					</div>
+				) : overlay ? (
+					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">
+						<LogIn setOverlay={setOverlay} />
 					</div>
 				) : null}
 				{navbar ? (
@@ -63,7 +70,7 @@ function App() {
 							to="/auth"
 							className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue"
 						>
-							Sign Up
+							LogIn
 						</Link>
 					</div>
 				) : null}

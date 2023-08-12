@@ -1,39 +1,35 @@
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-function SignUp({ setOverlay }) {
+function LogIn({ setOverlay }) {
+	const [ data, setData ] = useState();
 	const closeOverlayHandler = () => {
 		setOverlay(false);
 	};
 	const formik = useFormik({
 		initialValues: {
-			username: '',
-			lastname: '',
 			email: '',
 			password: ''
 		},
 		validationSchema: Yup.object({
-			username: Yup.string().required('Required'),
-			lastname: Yup.string().required('Required'),
 			email: Yup.string().email('Invalid email address').required('Required'),
 			password: Yup.string().min(6, 'Must be 6 characters or more').required('Required')
 		}),
 		onSubmit: async (values) => {
 			try {
-				const response = await fetch('http://localhost:3001/users/signUp', {
+				const response = await fetch('http://localhost:3001/users/login', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
-						firstName: values.username,
-						lastName: values.lastname,
 						email: values.email,
 						password: values.password
 					})
 				});
 				const responseData = await response.json();
-				setOverlay(false);
+				setData(responseData);
 				console.log(responseData);
 			} catch (err) {
 				console.log(err);
@@ -41,50 +37,8 @@ function SignUp({ setOverlay }) {
 		}
 	});
 	return (
-		<section className="bg-white p-10 w-[30%] h-[550px] flex justify-center items-center rounded">
+		<section className="bg-white p-10 w-[30%] h-[350px] flex justify-center items-center rounded">
 			<form onSubmit={formik.handleSubmit} className="flex flex-col w-full h-full">
-				<div className="flex flex-col">
-					<label htmlFor="username" className="font-bold text-base font-Nunito text-dark-blue mb-4">
-						First Name:
-					</label>
-					<input
-						type="text"
-						id="username"
-						name="username"
-						aria-required="true"
-						aria-label="username"
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.username}
-						className={`${formik.errors.username
-							? 'mb-2'
-							: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
-					/>
-					{formik.touched.username && formik.errors.username ? (
-						<p className="text-xs text-red-error mb-2">{formik.errors.username}</p>
-					) : null}
-				</div>
-				<div className="flex flex-col">
-					<label htmlFor="lastname" className="font-bold text-base font-Nunito text-dark-blue mb-4">
-						Last Name:
-					</label>
-					<input
-						type="text"
-						id="lastname"
-						name="lastname"
-						aria-required="true"
-						aria-label="lastname"
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.lastname}
-						className={`${formik.errors.username
-							? 'mb-2'
-							: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
-					/>
-					{formik.touched.lastname && formik.errors.lastname ? (
-						<p className="text-xs text-red-error mb-2">{formik.errors.lastname}</p>
-					) : null}
-				</div>
 				<div className="flex flex-col">
 					<label htmlFor="email" className="font-bold text-base font-Nunito text-dark-blue mb-4">
 						Email:
@@ -132,7 +86,7 @@ function SignUp({ setOverlay }) {
 						type="submit"
 						className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
 					>
-						Sign Up
+						LogIn
 					</button>
 					<button
 						type="submit"
@@ -147,4 +101,4 @@ function SignUp({ setOverlay }) {
 	);
 }
 
-export default SignUp;
+export default LogIn;

@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
 		const error = new HttpError('Wrong credencial', 401);
 		return next(error);
 	}
-	res.json({ message: 'LogIn' });
+	res.status(200).json({ message: 'LogIn' });
 };
 
 exports.getUsers = getUsers;
