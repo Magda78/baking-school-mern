@@ -6,7 +6,7 @@ function Booking() {
 	const [ startDate, setStartDate ] = useState(new Date());
 	return (
 		<section className="px-[47px] py-[48px]">
-			<form className="flex flex-col justify-between">
+			<form className="flex flex-col justify-between onClick={addToCartHandler}">
 				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
 					<div className="flex flex-col w-96 sm:w-full md:w-full">
 						<label

@@ -9,7 +9,7 @@ function Hero() {
 			<div className="w-full h-full object-cover sm:hidden md:hidden lg:hidden">
 				<img src="/img/cake.png" alt="cake" />
 			</div>
-			<div className="pl-[72px] py-12 pr-[154px] sm:text-center md:text-center lg:text-center sm:pl-12 sm:pr-12 md:pl-12 md:pr-12 lg:pl-12 lg:pr-12">
+			<div className="pl-[72px] pr-[127px] flex flex-col items-center justify-center">
 				<h1 className="font-bold text-8xl font-Nunito uppercase text-dark-blue leading-[90px]">
 					B<span className="text-pink">a</span>k<span className="text-pink">e</span> with us
 				</h1>

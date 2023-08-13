@@ -78,7 +78,7 @@ function Contact() {
 				<div className="w-[518px] flex flex-row justify-end sm:w-full">
 					<button
 						type="submit"
-						className="font-bold text-sm font-Nunito py-6 px-10 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
 					>
 						Send Message
 					</button>
