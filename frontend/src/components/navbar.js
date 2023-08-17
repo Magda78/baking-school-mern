@@ -4,7 +4,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import React, { useState } from 'react';
 
-function Navbar({ screenSize, setNavbar, setOverlay, setSign }) {
+function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart }) {
 	const [ hamburger, setHamburger ] = useState(true);
 	const [ hover, setHover ] = useState(false);
 
@@ -20,12 +20,14 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign }) {
 
 	const overlayHandlerLogIn = () => {
 		setOverlay(true);
-		setSign(false)
+		setSign(false);
+		setLogin(true);
 	};
 
 	const overlayHandlerSignUp = () => {
 		setOverlay(true);
 		setSign(true);
+		setLogin(false);
 	};
 
 	const mouseEnterHandler = () => {
@@ -44,22 +46,30 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign }) {
 
 			{screenSize === '2xl' || screenSize === '3xl' ? (
 				<div className="flex items-center space-x-[72px]">
-					<h2 className="font-bold text-base font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
+					<h2 className="font-bold text-sm font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
 						Home
 					</h2>
-					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Programs
 					</h2>
-					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Galery
 					</h2>
-					<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Contact Us
 					</h2>
-					<ShoppingCartOutlinedIcon className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue" />
+					<ShoppingCartOutlinedIcon
+						className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue"
+						onClick={() => {
+							setLogin(false);
+							setSign(false);
+							setCart(true);
+							setOverlay(true);
+						}}
+					/>
 
 					<div className="relative" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
-						<PersonOutlineOutlinedIcon className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue" />
+						<PersonOutlineOutlinedIcon className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue" />
 
 						{hover ? (
 							<div
@@ -85,13 +95,13 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign }) {
 				</div>
 			) : hamburger ? (
 				<MenuOutlinedIcon
-					className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue"
+					className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue"
 					onClick={hamburgerMenuHandler}
 				/>
 			) : (
 				<div>
 					<CloseOutlinedIcon
-						className="font-bold text-base text-dark-blue cursor-pointer hover:text-light-blue"
+						className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue"
 						onClick={hamburgerMenuHandler}
 					/>
 				</div>

@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
 		},
 
 		removeFromBasket: (state,action) => {
-			const withoutItem = state.items.filter(item => item.id != action.payload)
+			const withoutItem = state.items.filter(item => item.id !== action.payload)
 			state.items = withoutItem
 			console.log('redux', withoutItem)
         }
