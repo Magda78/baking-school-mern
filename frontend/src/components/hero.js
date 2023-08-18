@@ -10,10 +10,10 @@ function Hero() {
 				<img src="/img/cake.png" alt="cake" />
 			</div>
 			<div className="pl-[72px] pr-[127px] flex flex-col items-center justify-center">
-				<h1 className="font-bold text-8xl font-Nunito uppercase text-dark-blue leading-[90px]">
+				<h1 className="font-bold text-7xl font-Nunito uppercase text-dark-blue leading-[90px]">
 					B<span className="text-pink">a</span>k<span className="text-pink">e</span> with us
 				</h1>
-				<p className="mt-[30px] mb-[56px] font-normal text-2xl font-Nunito text-very-dark-blue leading-relaxed ">
+				<p className="mt-[30px] mb-[56px] font-normal text-xl font-Nunito text-very-dark-blue leading-relaxed  text-center">
 					Embark on a delectable journey of culinary mastery as you unlock the secrets of baking and discover
 					the artistry that lies within each delicious creation at our renowned baking school.
 				</p>
