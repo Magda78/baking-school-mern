@@ -31,7 +31,7 @@ function Cart({ setCart, cart }) {
 						<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue">Price</h2>
 						<h2 />
 					</div>
-					<div >{basketItems.map((item) => <CartItem item={item} />)}</div>
+					<div >{basketItems.map((item) => <CartItem item={item} key={item.id}/>)}</div>
 					<div className="flex items-center justify-between border-t-2 border-pink py-4">
 						<h2 className="font-bold text-md font-Nunito uppercase text-dark-blue">Total:</h2>
 						<h2 className="font-bold text-md font-Nunito uppercase text-dark-blue">${total}</h2>
