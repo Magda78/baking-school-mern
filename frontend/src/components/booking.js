@@ -1,5 +1,15 @@
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+//import DatePicker from 'react-datepicker';
+//import 'react-datepicker/dist/react-datepicker.css';
+
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { TextField } from '@mui/material';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
+
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
@@ -7,11 +17,15 @@ import { addToBasket } from '../store/cartSllice';
 import { format } from 'date-fns';
 
 function Booking() {
-	const [ startDate, setStartDate ] = useState(new Date());
-	const [ program, setProgram ] = useState();
-	const [ students, setStudents ] = useState();
+	const [ selectedDate, setSelectedDate ] = useState(null);
+	const [ program, setProgram ] = useState('');
+	const [ students, setStudents ] = useState('');
 	const dispatch = useDispatch();
-	const formatedStartDate = format(new Date(startDate), 'dd MMMM yy');
+	const formatedStartDate = format(new Date(selectedDate), 'dd MMMM yy');
+
+	const handleDateChange = (date) => {
+		setSelectedDate(date);
+	};
 
 	const addToCartHandler = (e) => {
 		const item = {
@@ -25,94 +39,68 @@ function Booking() {
 		e.preventDefault();
 		console.log('data', item);
 	};
+
+	const isWeekendOrWednesdayOrPast = (date) => {
+		// Disable Saturdays (6), Sundays (0), Wednesdays (3), and dates before today
+		return (
+		  date.getDay() === 0 ||
+		  date.getDay() === 6 ||
+		  date.getDay() === 3 ||
+		  date < new Date()
+		);
+	  };
+	  
 	return (
 		<section className="px-[47px] py-[48px]">
 			<form className="flex flex-col justify-between" onSubmit={addToCartHandler}>
 				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
 					<div className="flex flex-col w-96 sm:w-full md:w-full">
-						<label htmlFor="program" id="program" className="hidden">
-							Choose a Program:
-						</label>
-						<div className="py-3 px-6 bg-very-light-blue pr-6">
-							<select
-								id="program"
-								name="program"
-								aria-labelledby="program"
-								onChange={(e) => {
-									e.preventDefault();
-									if (e.target.value) {
-										setProgram(e.target.value);
-									}
-								}}
-								className="bg-very-light-blue text-dark-blue w-full cursor-pointer outline-none"
-							>
-								<option value="" className="font-normal text-base font-Nunito text-dark-blue">
-									Choose a Program...
-								</option>
-								<option
-									value="Kids Program"
-									className="font-normal text-base font-Nunito text-dark-blue"
+						<Box sx={{ minWidth: 120 }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Select program...</InputLabel>
+								<Select
+									labelId="program"
+									id="program"
+									value={program}
+									onChange={(e) => setProgram(e.target.value)}
+									label="Choose a Program..."
 								>
-									Kids Program
-								</option>
-								<option
-									value="Teens Program"
-									className="font-normal text-base font-Nunito text-dark-blue"
-								>
-									Teens Program
-								</option>
-								<option
-									value="Adult Program"
-									className="font-normal text-base font-Nunito text-dark-blue"
-								>
-									Adult Program
-								</option>
-							</select>
-						</div>
+									<MenuItem value="Kids Program">Kids Program</MenuItem>
+									<MenuItem value="Teens Program">Teens Program</MenuItem>
+									<MenuItem value="Adult Program">Adult Program</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
 					</div>
-					<div className="flex flex-col w-52 sm:mt-6 md:mt-6 sm:w-full md:w-full">
-						<label htmlFor="students" id="students" className="hidden">
-							Number of Students:
-						</label>
-						<div className="py-3 px-6 bg-very-light-blue pr-6">
-							<select
-								id="students"
-								name="students"
-								onChange={(e) => {
-									e.preventDefault();
-									if (e.target.value) {
-										setStudents(e.target.value);
-									}
-								}}
-								aria-labelledby="students"
-								className="bg-very-light-blue text-dark-blue w-full cursor-pointer outline-none"
-							>
-								<option value="" className="font-normal text-base font-Nunito text-dark-blue">
-									Count
-								</option>
-								<option value="1" className="font-normal text-base font-Nunito text-dark-blue">
-									1
-								</option>
-								<option value="2" className="font-normal text-base font-Nunito text-dark-blue">
-									2
-								</option>
-								<option value="3" className="font-normal text-base font-Nunito text-dark-blue">
-									3
-								</option>
-							</select>
-						</div>
+
+					<div className="flex flex-col w-96 sm:mt-6 md:mt-6 sm:w-full md:w-full">
+						<Box sx={{ minWidth: 120 }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Qty.</InputLabel>
+								<Select
+									labelId="students"
+									id="students"
+									value={students}
+									onChange={(e) => setStudents(e.target.value)}
+									label="Count"
+								>
+									<MenuItem value="1">1</MenuItem>
+									<MenuItem value="2">2</MenuItem>
+									<MenuItem value="3">3</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
 					</div>
 					<div className="sm:mt-6 md:mt-6 sm:w-full md:w-full">
-						<label htmlFor="date" className="hidden">
-							Choose a Date:
-						</label>
-						<div className="py-3 px-6 bg-very-light-blue pr-6">
+						<LocalizationProvider dateAdapter={AdapterDateFns}>
 							<DatePicker
-								selected={startDate}
-								className="bg-very-light-blue text-dark-blue cursor-pointer outline-none"
-								onChange={(date) => setStartDate(date)}
+								label="Select Date"
+								value={selectedDate}
+								onChange={handleDateChange}
+								shouldDisableDate={isWeekendOrWednesdayOrPast}
+								renderInput={(params) => <TextField {...params} />}
 							/>
-						</div>
+						</LocalizationProvider>
 					</div>
 				</div>
 
