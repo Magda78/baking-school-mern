@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { nanoid } from 'nanoid';
+import { addUser } from '../store/userSlice';
+import { useDispatch } from 'react-redux';
 
 function LogIn({ setOverlay }) {
 	const [ data, setData ] = useState();
+	const dispatch = useDispatch();
 	const closeOverlayHandler = () => {
 		setOverlay(false);
 	};
@@ -31,6 +35,11 @@ function LogIn({ setOverlay }) {
 				const responseData = await response.json();
 				setData(responseData);
 				console.log(responseData);
+				const user = {
+					id: nanoid(),
+					email: values.email
+				};
+				dispatch(addUser(user));
 			} catch (err) {
 				console.log(err);
 			}

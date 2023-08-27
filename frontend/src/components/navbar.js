@@ -6,10 +6,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../store/cartSllice';
 
+
 function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart }) {
 	const [ hamburger, setHamburger ] = useState(true);
 	const [ hover, setHover ] = useState(false);
 	const basketItems = useSelector(selectItems);
+	
 
 	const hamburgerMenuHandler = () => {
 		if (hamburger === true) {

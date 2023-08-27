@@ -31,8 +31,8 @@ const getOrdersByUserId = async (req, res, next) => {
 };
 
 const createOrder = async (req, res, next) => {
-	const { name, timeOfTheDay, creator } = req.body;
-
+	const { name, creator } = req.body;
+console.log(name,creator)
 	const err = validationResult(req);
 	if (!err.isEmpty()) {
 		const error = new HttpError('Invalid inputs', 422);
@@ -41,7 +41,6 @@ const createOrder = async (req, res, next) => {
 
 	const createOrder = new Order({
 		name,
-		timeOfTheDay,
 		creator
 	});
 

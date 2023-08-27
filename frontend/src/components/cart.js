@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useSelector } from 'react-redux';
 import { selectTotal, selectItems } from '../store/cartSllice';
+import {selectUser} from '../store/userSlice'
 import CartItem from '../components/cartItem';
 //import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -11,6 +12,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 function Cart({ setCart, cart }) {
 	const total = useSelector(selectTotal);
 	const basketItems = useSelector(selectItems);
+	const user = useSelector(selectUser);
 	const [ clientSecret, setClientSecret ] = useState('');
 
 	const createCheckoutSession = async () => {
@@ -22,7 +24,7 @@ function Cart({ setCart, cart }) {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ basketItems })
+				body: JSON.stringify({ basketItems, user })
 			});
 
 			const checkoutSession = await response.json();
