@@ -5,12 +5,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const OrdersRoute = require('./routes/orders');
 const UsersRoute = require('./routes/users');
-//const WebhookRoute = require('./routes/webhook');
+const WebhookRoute = require('./routes/webhook');
 
 const { validationResult } = require('express-validator');
 const Order = require('./models/order');
 const User = require('./models/user');
 const HttpError = require('./models/http-error');
+const { google } = require('googleapis');
+const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -34,7 +36,12 @@ mongoose
 	});
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+	cors({
+		origin: 'http://localhost:3000',
+		credentials: true // Allow cookies and headers to be sent with the request
+	})
+);
 //app.use(bodyParser.json());
 app.use((req, res, next) => {
 	if (req.originalUrl === '/webhook') {
@@ -46,10 +53,12 @@ app.use((req, res, next) => {
 app.use(OrdersRoute);
 app.use(UsersRoute);
 
+const CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+//const CREDENTIALS_ONE = JSON.parse(process.env.GOOGLE_CREDENTIALS_ONE);
+
 app.post('/create-checkout-session', async (req, res) => {
-	console.log(req.body.basketItems);
 	const { basketItems, user } = req.body;
-	console.log('user', user);
+	//console.log('user', user);
 	const transformData = basketItems.map((item) => ({
 		price_data: {
 			currency: 'usd',
@@ -79,126 +88,50 @@ app.post('/create-checkout-session', async (req, res) => {
 	}
 });
 
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
-const stripe = require('stripe')('sk_test_51KpK5YAvVkCbGsS59MSPmVmw0RFeENOKYYyJQ5CUZ37yvEXpC9m1F7yTQNfVWQ4cEAZ3xYnaBvbpQkmEdyC1bPpt00soRg255q');
+const endpointSecret = process.env.STRIPE_SIGNING_SECRET_WEBHOOK;
 
-// If you are testing your webhook locally with the Stripe CLI you
-// can find the endpoint's secret by running `stripe listen`
-// Otherwise, find your endpoint's secret in your webhook settings in the Developer Dashboard
-const endpointSecret = 'whsec_b368b8bf9861dd75ae0adce19955ca76c1e8fc5916c0c6f938f24106263fd359';
-
-//app.post('/webhook', async (req, res) => {
-//	console.log('weeeeeeeeeb');
-
-//	const stripe = require('stripe')('sk_test_51KpK5YAvVkCbGsS59MSPmVmw0RFeENOKYYyJQ5CUZ37yvEXpC9m1F7yTQNfVWQ4cEAZ3xYnaBvbpQkmEdyC1bPpt00soRg255q');
-
-//	const endpointSecret = 'whsec_b368b8bf9861dd75ae0adce19955ca76c1e8fc5916c0c6f938f24106263fd359';
-
-//	const sig = req.headers['stripe-signature'];
-
-//	let event;
-
-	// Verify webhook signature and extract the event.
-	// See https://stripe.com/docs/webhooks#verify-events for more information.
-//	try {
-//		event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-//		
-//	} catch (err) {
-//		return res.status(400).send(`Webhook Error: ${err.message}`);
-//	}
-
-	//if (event.type === 'checkout.session.completed') {
-	//	console.log('completed..............')
-	//	const { creator, name } = event.data.object;
-	//	const err = validationResult(req);
-	//	if (!err.isEmpty()) {
-	//		const error = new HttpError('Invalid inputs', 422);
-	//		return next(error);
-	//	}
-
-	//	const createOrder = new Order({
-	//		name,
-	//		creator
-	//	});
-
-	//	let user;
-	//	try {
-	//		user = await User.findById(creator);
-	//	} catch (err) {
-	//		const error = new HttpError('Could not add order to db', 500);
-	//		return next(error);
-	//	}
-	//	if (!user) {
-	//		const error = new HttpError('User does not exist', 404);
-	//		return next(error);
-	//	}
-
-	//	try {
-	//		const sess = await mongoose.startSession();
-	//		sess.startTransaction();
-	//		await createOrder.save({ session: sess });
-	//		user.orders.push(createOrder);
-	//		await user.save({ session: sess });
-	//		sess.commitTransaction();
-	//	} catch (err) {
-	//		const error = new HttpError('Creating order failed', 500);
-	//		return next(error);
-	//	}
-
-	//	res.status(201).json({ orders: createOrder.toObject({ getters: true }) });
-	//}
-
-//	if (event.type === 'account.application.deauthorized') {
-//		const application = event.data.object;
-//		const connectedAccountId = event.account;
-//		handleDeauthorization(connectedAccountId, application);
-//		res.json({ received: true }); // Move this line here
-//	}
-//});
-
-app.post('/webhook', bodyParser.raw({type: 'application/json'}), async (req, res, next) => {
+app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
 	const sig = req.headers['stripe-signature'];
-  
+	const calendarClientId = process.env.GOOGLE_CREDENTIALS.client_id;
+	const calendarClientSecret = process.env.GOOGLE_CREDENTIALS.client_secret;
+	const oAuth2Client = new google.auth.OAuth2(calendarClientId, calendarClientSecret);
+	const calendar = google.calendar({ version: 'v3', auth: OAuth2Client });
+	const calendarId = process.env.CALENDAR_ID;
 	let event;
-  
+
 	// Verify webhook signature and extract the event.
 	// See https://stripe.com/docs/webhooks#verify-events for more information.
 	try {
-	  event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+		event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 	} catch (err) {
-	  return res.status(400).send(`Webhook Error: ${err.message}`);
+		return res.status(400).send(`Webhook Error: ${err.message}`);
 	}
-  
+
 	if (event.type === 'account.application.deauthorized') {
-	  const application = event.data.object;
-	  const connectedAccountId = event.account;
-	  handleDeauthorization(connectedAccountId, application);
+		const application = event.data.object;
+		const connectedAccountId = event.account;
+		handleDeauthorization(connectedAccountId, application);
+		return res.json({ received: true });
 	}
 
 	if (event.type === 'checkout.session.completed') {
-		console.log('completed..............')
 		const { email, name } = event.data.object.metadata;
 		let userId;
-		console.log('event', event.data.object.metadata)
-		const err = validationResult(req);
-		if (!err.isEmpty()) {
-			const error = new HttpError('Invalid inputs', 422);
-			return next(error);
-		}
-
-		
 
 		let user;
 		try {
-			user = await User.findOne(email);
-			userId = user.id
+			user = await User.findOne({ email: email });
+			userId = user._id;
 		} catch (err) {
 			const error = new HttpError('Could not add order to db', 500);
-			return next(error);
+			return res.status(500).json({ error: 'Could not add order to db' });
 		}
+
 		if (!user) {
 			const error = new HttpError('User does not exist', 404);
-			return next(error);
+			return res.status(404).json({ error: 'User does not exist' });
 		}
 
 		const createOrder = new Order({
@@ -215,23 +148,61 @@ app.post('/webhook', bodyParser.raw({type: 'application/json'}), async (req, res
 			sess.commitTransaction();
 		} catch (err) {
 			const error = new HttpError('Creating order failed', 500);
-			return next(error);
+			return res.status(500).json({ error: 'Creating order failed' });
 		}
 
-		res.status(201).json({ orders: createOrder.toObject({ getters: true }) });
+		const auth = new google.auth.GoogleAuth({
+			keyFile: 'service-key.json',
+			scopes: [ 'https://www.googleapis.com/auth/calendar' ]
+		});
+
+		// Obtain an OAuth2 client instance
+		const authClient = await auth.getClient();
+
+		// Define the event details
+		const eventCalendar = {
+			summary: 'Class Booking',
+			location: 'Location Name',
+			description: 'Class Description',
+			start: {
+				dateTime: '2023-09-15T10:00:00', // Set the start date and time
+				timeZone: 'America/New_York'
+			},
+			end: {
+				dateTime: '2023-09-15T12:00:00', // Set the end date and time
+				timeZone: 'America/New_York'
+			}
+		};
+
+		// Create the event in the owner's calendar
+		calendar.events.insert(
+			{
+				auth: authClient,
+				calendarId: process.env.CALENDAR_ID, // Replace with the owner's calendar ID
+				resource: eventCalendar
+			},
+			(err, event) => {
+				if (err) {
+					console.error('Error creating event:', err);
+					// Handle the error
+				} else {
+					console.log('Event created:', event.data);
+				}
+			}
+		);
+
+		return res.status(201).json({ orders: createOrder.toObject({ getters: true }) });
 	}
-  
-	res.json({received: true});
-  });
-  
-  
-  const handleDeauthorization = (connectedAccountId, application) => {
+
+	// Respond to other webhook events
+	return res.json({ received: true });
+});
+
+const handleDeauthorization = (connectedAccountId, application) => {
 	// Clean up account state.
 	console.log('Connected account ID: ' + connectedAccountId);
 	console.log(JSON.stringify(application));
-  }
-
-
+};
 
 //app.use(WebhookRoute);
 app.listen(port, () => console.log(`Server running on port ${port}`));

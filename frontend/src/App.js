@@ -54,11 +54,13 @@ function App() {
 				</Routes>
 				<Footer />
 				{cart && overlay ? (
-					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[0px] right-0 flex justify-end">
+					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[0px] right-0 flex justify-end ">
 						<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
 					</div>
 				) : (
-					console.log('cart close')
+					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[0px] -right-full flex justify-end ">
+						<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
+					</div>
 				)}
 				{overlay && sign ? (
 					<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">

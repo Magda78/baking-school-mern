@@ -1,6 +1,6 @@
 function Contact() {
 	return (
-		<section className="flex flex-col justify-center py-[48px]  sm:px-[47px] md:px-[47px]">
+		<section id="contactUs" className="flex flex-col justify-center py-[48px]  sm:px-[47px] md:px-[47px]">
 			<form className="flex flex-col justify-between items-center sm:items-start">
 				<div className="flex flex-col justify-between items-center sm:items-start sm:w-full">
 					<div className="flex flex-row sm:flex-col sm:w-full">

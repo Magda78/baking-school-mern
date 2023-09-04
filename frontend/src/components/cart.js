@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useSelector } from 'react-redux';
 import { selectTotal, selectItems } from '../store/cartSllice';
-import {selectUser} from '../store/userSlice'
+import { selectUser } from '../store/userSlice';
 import CartItem from '../components/cartItem';
 //import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -31,9 +31,9 @@ function Cart({ setCart, cart }) {
 			const { sessionId } = checkoutSession;
 			const result = await stripe.redirectToCheckout({
 				sessionId: sessionId
-			})
-			if(result.error) {
-				alert(result.error.message)
+			});
+			if (result.error) {
+				alert(result.error.message);
 			}
 			//const data = await response.json();
 			//setClientSecret(data.clientSecret);
@@ -44,9 +44,9 @@ function Cart({ setCart, cart }) {
 
 	return (
 		<section
-			className={`w-[40%] h-screen bg-white p-10 flex flex-col fixed transition-right duration-100 ease-in-out ${cart
-				? 'right-0 '
-				: '-right-full'} `}
+			className={` top-0  w-[40%] h-screen bg-white p-10 flex flex-col fixed transform ${cart
+				? 'translate-x-0'
+				: 'translate-x-full'} transition-transform duration-300 ease-in-out `}
 		>
 			<div className="flex justify-end cursor-pointer mb-10">
 				<CloseOutlinedIcon
@@ -72,9 +72,14 @@ function Cart({ setCart, cart }) {
 						<h2 className="font-bold text-md font-Nunito uppercase text-dark-blue">Total:</h2>
 						<h2 className="font-bold text-md font-Nunito uppercase text-dark-blue">${total}</h2>
 					</div>
-					
-						<button onClick={createCheckoutSession} type="submit" className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink">Checkout</button>
-				
+
+					<button
+						onClick={createCheckoutSession}
+						type="submit"
+						className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+					>
+						Checkout
+					</button>
 				</div>
 			)}
 		</section>

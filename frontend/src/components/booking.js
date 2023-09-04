@@ -42,22 +42,17 @@ function Booking() {
 
 	const isWeekendOrWednesdayOrPast = (date) => {
 		// Disable Saturdays (6), Sundays (0), Wednesdays (3), and dates before today
-		return (
-		  date.getDay() === 0 ||
-		  date.getDay() === 6 ||
-		  date.getDay() === 3 ||
-		  date < new Date()
-		);
-	  };
-	  
+		return date.getDay() === 0 || date.getDay() === 6 || date.getDay() === 3 || date < new Date();
+	};
+
 	return (
 		<section className="px-[47px] py-[48px]">
 			<form className="flex flex-col justify-between" onSubmit={addToCartHandler}>
 				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
 					<div className="flex flex-col w-96 sm:w-full md:w-full">
 						<Box sx={{ minWidth: 120 }}>
-							<FormControl fullWidth>
-								<InputLabel id="demo-simple-select-label">Select program...</InputLabel>
+							<FormControl fullWidth >
+								<InputLabel id="demo-simple-select-label" >Select program...</InputLabel>
 								<Select
 									labelId="program"
 									id="program"

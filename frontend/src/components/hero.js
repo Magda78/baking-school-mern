@@ -5,7 +5,7 @@ function Hero() {
 		backgroundImage: `url(${backgroundImage})`
 	};
 	return (
-		<section className="flex flex-row" style={{ ...containerStyle, height: '100%' }}>
+		<section id="hero" className="flex flex-row" style={{ ...containerStyle, height: '100%' }}>
 			<div className="w-full h-full object-cover sm:hidden md:hidden lg:hidden">
 				<img src="/img/cake.png" alt="cake" />
 			</div>

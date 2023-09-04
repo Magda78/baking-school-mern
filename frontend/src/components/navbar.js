@@ -5,13 +5,12 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../store/cartSllice';
-
+import { Link } from 'react-scroll'
 
 function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart }) {
 	const [ hamburger, setHamburger ] = useState(true);
 	const [ hover, setHover ] = useState(false);
 	const basketItems = useSelector(selectItems);
-	
 
 	const hamburgerMenuHandler = () => {
 		if (hamburger === true) {
@@ -51,18 +50,18 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart 
 
 			{screenSize === '2xl' || screenSize === '3xl' ? (
 				<div className="flex items-center space-x-[72px]">
-					<h2 className="font-bold text-sm font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
+					<Link to="hero" spy={true} smooth={true} offset={50} duration={500} className="font-bold text-sm font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
 						Home
-					</h2>
-					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					</Link>
+					<Link to="programs" spy={true} smooth={true} offset={50} duration={500} className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Programs
-					</h2>
-					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					</Link>
+					<Link to="galery" className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Galery
-					</h2>
-					<h2 className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					</Link>
+					<Link to="contactUs" className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
 						Contact Us
-					</h2>
+					</Link>
 					<div className="relative">
 						<ShoppingCartOutlinedIcon
 							className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue"
