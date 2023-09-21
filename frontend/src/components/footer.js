@@ -3,7 +3,7 @@ import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 
 function Footer() {
 	return (
-		<section className="py-12 px-[127px] bg-midium-blue flex sm:flex-col md:flex-col lg:flex-col 2xl:flex-row justify-between sm:px-[47px] md:px-[47px]">
+		<section className=" w-full py-12 px-[127px] bg-midium-blue flex sm:flex-col md:flex-col lg:flex-col 2xl:flex-row justify-between sm:px-[47px] md:px-[47px]">
 			<div>
 				<div className="mb-6">
 					<img src="/img/small-logo.png" alt="logo" />

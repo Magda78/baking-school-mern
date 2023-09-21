@@ -44,7 +44,7 @@ function Cart({ setCart, cart }) {
 
 	return (
 		<section
-			className={` top-0  w-[40%] h-screen bg-white p-10 flex flex-col fixed transform ${cart
+			className={` top-0  w-[40%] h-screen bg-white p-10 flex flex-col z-20 fixed transform ${cart
 				? 'translate-x-0'
 				: 'translate-x-full'} transition-transform duration-300 ease-in-out `}
 		>
@@ -76,7 +76,7 @@ function Cart({ setCart, cart }) {
 					<button
 						onClick={createCheckoutSession}
 						type="submit"
-						className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+						className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink mt-4 transition-transform transform duration-300  hover:scale-110"
 					>
 						Checkout
 					</button>

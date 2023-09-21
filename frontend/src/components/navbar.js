@@ -5,11 +5,13 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../store/cartSllice';
-import { Link } from 'react-scroll'
+import { Link } from 'react-scroll';
+//import { motion } from 'framer-motion';
 
 function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart }) {
 	const [ hamburger, setHamburger ] = useState(true);
 	const [ hover, setHover ] = useState(false);
+	const [ active, setActive ] = useState(false);
 	const basketItems = useSelector(selectItems);
 
 	const hamburgerMenuHandler = () => {
@@ -41,26 +43,78 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart 
 	const mouseLeaveHandler = () => {
 		setHover(false);
 	};
+	const underLineHandler = () => {
+		setActive(true);
+		setActive(false);
+	};
 
 	return (
-		<section className="px-[127px] py-12 flex flex-row items-center justify-between sm:px-[47px] md:px-[47px]">
+		<section
+			data-aos="fade-down"
+			data-aos-delay="600"
+			className=" w-full z-10 sticky top-0 bg-white px-[127px] py-12 flex flex-row items-center justify-between sm:px-[47px] md:px-[47px]"
+		>
 			<div>
 				<img src="/img/logo.png" alt="logo" />
 			</div>
 
 			{screenSize === '2xl' || screenSize === '3xl' ? (
 				<div className="flex items-center space-x-[72px]">
-					<Link to="hero" spy={true} smooth={true} offset={50} duration={500} className="font-bold text-sm font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
+					<Link
+						onClick={underLineHandler}
+						to="hero"
+						spy={true}
+						smooth={true}
+						offset={-120}
+						duration={500}
+						className={`font-bold text-sm font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue ${active
+							? 'border border-2-pink'
+							: null}`}
+					>
 						Home
 					</Link>
-					<Link to="programs" spy={true} smooth={true} offset={50} duration={500} className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<Link
+						to="programs"
+						spy={true}
+						smooth={true}
+						offset={-150}
+						duration={500}
+						className={`font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue ${active
+							? 'border border-2-pink'
+							: null} `}
+					>
 						Programs
 					</Link>
-					<Link to="galery" className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<Link
+						to="galery"
+						spy={true}
+						smooth={true}
+						offset={-120}
+						duration={500}
+						className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue"
+					>
 						Galery
 					</Link>
-					<Link to="contactUs" className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
+					<Link
+						to="contactUs"
+						spy={true}
+						smooth={true}
+						offset={-150}
+						duration={500}
+						delay={1000}
+						className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue"
+					>
 						Contact Us
+					</Link>
+					<Link
+						to="about"
+						spy={true}
+						smooth={true}
+						offset={-150}
+						duration={500}
+						className="font-bold text-sm font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue"
+					>
+						About Us
 					</Link>
 					<div className="relative">
 						<ShoppingCartOutlinedIcon

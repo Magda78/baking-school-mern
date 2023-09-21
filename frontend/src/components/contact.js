@@ -1,6 +1,6 @@
 function Contact() {
 	return (
-		<section id="contactUs" className="flex flex-col justify-center py-[48px]  sm:px-[47px] md:px-[47px]">
+		<section data-aos="zoom-in" data-aos-offset="350" data-delay="300" id="contactUs" className="flex flex-col justify-center py-[48px]  sm:px-[47px] md:px-[47px]">
 			<form className="flex flex-col justify-between items-center sm:items-start">
 				<div className="flex flex-col justify-between items-center sm:items-start sm:w-full">
 					<div className="flex flex-row sm:flex-col sm:w-full">
@@ -78,7 +78,7 @@ function Contact() {
 				<div className="w-[518px] flex flex-row justify-end sm:w-full">
 					<button
 						type="submit"
-						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink transition-transform transform duration-300  hover:scale-110"
 					>
 						Send Message
 					</button>

@@ -51,8 +51,8 @@ function Booking() {
 				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
 					<div className="flex flex-col w-96 sm:w-full md:w-full">
 						<Box sx={{ minWidth: 120 }}>
-							<FormControl fullWidth >
-								<InputLabel id="demo-simple-select-label" >Select program...</InputLabel>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Select program...</InputLabel>
 								<Select
 									labelId="program"
 									id="program"
@@ -102,7 +102,7 @@ function Booking() {
 				<div className="flex justify-end">
 					<button
 						type="submit"
-						className="font-bold text-base font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
+						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink transition-transform transform duration-300  hover:scale-110"
 					>
 						Schedule Class
 					</button>

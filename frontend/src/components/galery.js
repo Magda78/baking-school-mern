@@ -1,6 +1,6 @@
 function Galery() {
 	return (
-		<section id="galery">
+		<section id="galery" data-aos="zoom-in" data-aos-offset="350" data-delay="300">
 			<div className="grid grid-cols-4 gap-8 py-[48px]">
 				<div>
 					<img src="/img/galery1.png" alt="galery" className="w-full h-full object-cover" />

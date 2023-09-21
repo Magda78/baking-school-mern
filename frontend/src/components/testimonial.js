@@ -2,7 +2,12 @@ import { Icon } from '@iconify/react';
 
 function Testimonial({ name, description }) {
 	return (
-		<section className="pb-[47px] px-[41px] pt-16 bg-white flex flex-col items-center justify-center">
+		<section
+			data-aos="fade-in"
+			data-aos-offset="350"
+			data-delay="200"
+			className="pb-[47px] px-[41px] pt-16 bg-white flex flex-col items-center justify-center"
+		>
 			<h2 className="text-base  text-dark-blue font-Nunito font-normal mb-8 text-center">
 				<Icon icon="ri:double-quotes-l" className="inline-block mr-2 text-lighter-blue" />
 				<span>{description}</span>

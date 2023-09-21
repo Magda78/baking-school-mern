@@ -5,15 +5,25 @@ function About({ screenSize }) {
 		backgroundImage: `url(${backgroundImage})`
 	};
 	return (
-		<section>
-			{screenSize === 'sm' || screenSize === 'md' || screenSize === 'lg'? (
+		<section className="about">
+			{screenSize === 'sm' || screenSize === 'md' || screenSize === 'lg' ? (
 				<div
 					className="px-[127px] py-[48px] flex flex-col justify-center items-center sm:px-[47px] md:px-[47px]"
 					style={{ ...containerStyle, height: '100%' }}
 				>
-					<div className="flex  flex-col justify-center items-center">
+					<div
+						data-aos="fade-down"
+						data-aos-offset="600"
+						data-delay="200"
+						className="flex  flex-col justify-center items-center "
+					>
 						<img src="/img/baker.png" alt="logo" />
-						<div className="text-center mt-[45px] text-lg font-Nunito text-very-dark-blue font-normal">
+						<div
+							data-aos="fade-up-right"
+							data-aos-offset="600"
+							data-delay="200"
+							className="text-center mt-[45px] text-lg font-Nunito text-very-dark-blue font-normal"
+						>
 							At Brooklyn Baking School, we are passionate about sharing the art and joy of baking with
 							baking enthusiasts of all levels. Our mission is to inspire and empower individuals to
 							explore their creativity in the kitchen and master the art of baking. With our expert
@@ -31,7 +41,12 @@ function About({ screenSize }) {
 					className="pl-[127px] py-[48px] flex flex-row items-center justify-between"
 					style={{ ...containerStyle, height: '100%' }}
 				>
-					<div className="flex flex-1 mr-10 text-lg font-Nunito text-very-dark-blue font-normal">
+					<div
+						data-aos="fade-right"
+						data-aos-offset="350"
+						data-delay="300"
+						className="flex flex-1 mr-10 text-lg font-Nunito text-very-dark-blue font-normal leading-relaxed "
+					>
 						At Brooklyn Baking School, we are passionate about sharing the art and joy of baking with baking
 						enthusiasts of all levels. Our mission is to inspire and empower individuals to explore their
 						creativity in the kitchen and master the art of baking. With our expert instructors,
@@ -42,7 +57,7 @@ function About({ screenSize }) {
 						experiment with flavors, and create delicious masterpieces. Join us on this delectable journey
 						and unlock your full baking potential!
 					</div>
-					<div className="flex flex-1">
+					<div className="flex flex-1" data-aos="zoom-in" data-aos-offset="350" data-delay="300">
 						<img src="/img/baker.png" alt="logo" />
 					</div>
 				</div>
