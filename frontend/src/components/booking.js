@@ -21,7 +21,7 @@ function Booking() {
 	const [ program, setProgram ] = useState('');
 	const [ students, setStudents ] = useState('');
 	const dispatch = useDispatch();
-	const formatedStartDate = format(new Date(selectedDate), 'dd MMMM yy');
+	const formatedStartDate = format(new Date(selectedDate), 'yyyy-MM-dd');
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);

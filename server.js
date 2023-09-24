@@ -58,12 +58,15 @@ const CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
 app.post('/create-checkout-session', async (req, res) => {
 	const { basketItems, user } = req.body;
-	//console.log('user', user);
+	console.log('basket back', basketItems);
 	const transformData = basketItems.map((item) => ({
 		price_data: {
 			currency: 'usd',
 			product_data: {
-				name: item.program
+				name: item.program,
+				metadata: {
+					date: item.date // Include the date as metadata
+				}
 			},
 			unit_amount: item.price * 100
 		},
@@ -71,7 +74,7 @@ app.post('/create-checkout-session', async (req, res) => {
 	}));
 
 	try {
-		//console.log('transform data', transformData[0].price_data.product_data.name);
+		console.log('transform date', transformData[0].price_data.product_data.metadata.date);
 		const session = await stripe.checkout.sessions.create({
 			line_items: transformData,
 			mode: 'payment',
@@ -79,7 +82,8 @@ app.post('/create-checkout-session', async (req, res) => {
 			cancel_url: 'http://localhost:4242/cancel',
 			metadata: {
 				email: user[0].email,
-				name: transformData[0].price_data.product_data.name
+				name: transformData[0].price_data.product_data.name,
+				date: transformData[0].price_data.product_data.metadata.date
 			}
 		});
 		res.status(200).json({ sessionId: session.id });
@@ -117,9 +121,11 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 	}
 
 	if (event.type === 'checkout.session.completed') {
-		const { email, name } = event.data.object.metadata;
+		const { email, name, date } = event.data.object.metadata;
 		let userId;
-
+		const selectedDate = new Date(date);
+		const toUtc = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
+		let class_date = toUtc.toISOString();
 		let user;
 		try {
 			user = await User.findOne({ email: email });
@@ -165,11 +171,11 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 			location: 'Location Name',
 			description: 'Class Description',
 			start: {
-				dateTime: '2023-09-15T10:00:00', // Set the start date and time
+				dateTime: class_date, // Set the start date and time
 				timeZone: 'America/New_York'
 			},
 			end: {
-				dateTime: '2023-09-15T12:00:00', // Set the end date and time
+				dateTime: class_date, // Set the end date and time
 				timeZone: 'America/New_York'
 			}
 		};
