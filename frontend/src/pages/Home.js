@@ -8,9 +8,8 @@ import Testimonials from '../components/testimonials';
 import Contact from '../components/contact';
 import AOS from 'aos';
 
-function Home({screenSize}) {
+function Home({ screenSize }) {
 	useEffect(() => {
-		
 		AOS.init();
 	}, []);
 	return (
@@ -22,7 +21,6 @@ function Home({screenSize}) {
 			<Galery />
 			<Testimonials screenSize={screenSize} />
 			<Contact />
-            
 		</div>
 	);
 }

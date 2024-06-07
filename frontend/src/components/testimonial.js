@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 function Testimonial({ name, description }) {
 	return (
 		<section
-			data-aos="fade-in"
+			data-aos="flip-left"
 			data-aos-offset="350"
 			data-delay="200"
 			className="pb-[47px] px-[41px] pt-16 bg-white flex flex-col items-center justify-center"

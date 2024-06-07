@@ -40,6 +40,7 @@ function LogIn({ setOverlay }) {
 					email: values.email
 				};
 				dispatch(addUser(user));
+				setOverlay(false);
 			} catch (err) {
 				console.log(err);
 			}

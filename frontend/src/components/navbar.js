@@ -135,7 +135,7 @@ function Navbar({ screenSize, setNavbar, setOverlay, setSign, setLogin, setCart 
 						<PersonOutlineOutlinedIcon className="font-bold text-sm text-dark-blue cursor-pointer hover:text-light-blue " />
 
 						{hover ? (
-							<div
+							<div data-aos="flip-left"
 								className="absolute top-0 right-0 pt-8 flex flex-col  justify-center items-end  "
 								onMouseEnter={mouseEnterHandler}
 								onMouseLeave={mouseLeaveHandler}

@@ -8,7 +8,7 @@ function Hero() {
 	};
 
 	return (
-		<div data-aos="fade-down">
+		<div data-aos="zoom-in">
 			<section id="hero" className="flex flex-row " style={{ ...containerStyle, height: '100%' }}>
 				<div className="w-full h-full  sm:hidden md:hidden lg:hidden">
 					<img src="/img/cake.png" alt="cake" className="scale-130 w-full h-full object-cover" />

@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	items: []
+	items: [],
+	cartExpiration: null
 };
 
 export const cartSlice = createSlice({
@@ -14,11 +15,15 @@ export const cartSlice = createSlice({
 
 		removeFromBasket: (state, action) => {
 			state.items = state.items.filter((item) => item.id !== action.payload);
+		},
+
+		expiration: (state,action) => {
+			state.cartExpiration = action.payload;
 		}
 	}
 });
 
-export const { addToBasket, removeFromBasket } = cartSlice.actions;
+export const { addToBasket, removeFromBasket, expiration } = cartSlice.actions;
 
 // Selectors - This is how we pull information from the Global store slice
 export const selectItems = (state) => state.cart.items;

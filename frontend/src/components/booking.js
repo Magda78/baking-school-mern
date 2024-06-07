@@ -1,6 +1,3 @@
-//import DatePicker from 'react-datepicker';
-//import 'react-datepicker/dist/react-datepicker.css';
-
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { TextField } from '@mui/material';
@@ -10,39 +7,139 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToBasket } from '../store/cartSllice';
+import { addToDate, updateAvailability } from '../store/availabilitiesSlice';
+import { selectItems, selectIsFetched } from '../store/availabilitiesSlice';
 import { format } from 'date-fns';
 
 function Booking() {
 	const [ selectedDate, setSelectedDate ] = useState(null);
-	const [ program, setProgram ] = useState('');
-	const [ students, setStudents ] = useState('');
+	const [ notAvailability, setNotAvailability ] = useState([]);
+	const [ program, setProgram ] = useState('Kids Program');
+	const [ students, setStudents ] = useState(0);
 	const dispatch = useDispatch();
-	const formatedStartDate = format(new Date(selectedDate), 'yyyy-MM-dd');
+	const availabilitiesData = useSelector(selectItems);
+	const isFetched = useSelector(selectIsFetched);
+
+	useEffect(
+		() => {
+			if (!isFetched) {
+				console.log('Fetching availability data');
+				const abortController = new AbortController();
+
+				const fetchData = async () => {
+					try {
+						const response = await fetch('http://localhost:3001/availability', {
+							method: 'GET',
+							headers: { 'Content-Type': 'application/json' },
+							signal: abortController.signal
+						});
+
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+
+						const data = await response.json();
+						console.log('Fetched data:', data.availabilities);
+
+						if (Array.isArray(data.availabilities)) {
+							setNotAvailability(data.availabilities);
+							data.availabilities.forEach((item) => {
+								dispatch(
+									addToDate({
+										id: nanoid(),
+										date: format(new Date(item.date), 'yyyy-MM-dd'),
+										program: item.program,
+										availableClassCount: item.availableClassCount,
+										isNotAvailable: item.isNotAvailable
+									})
+								);
+							});
+						} else {
+							console.log('Error:', data);
+						}
+					} catch (error) {
+						console.error('Fetch error:', error);
+					}
+				};
+
+				fetchData();
+
+				return () => {
+					abortController.abort();
+				};
+			}
+		},
+		[ dispatch, isFetched ]
+	);
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
 
 	const addToCartHandler = (e) => {
+		e.preventDefault();
+
+		const formattedStartDate = selectedDate ? format(new Date(selectedDate), 'yyyy-MM-dd') : null;
+
+		const classIsThere = notAvailability.find((item) => {
+			const itemDateFormatted = format(new Date(item.date), 'yyyy-MM-dd');
+			return item.program === program && itemDateFormatted === formattedStartDate;
+		});
+
+		const newAvailableClassCount = classIsThere ? classIsThere.availableClassCount - students : 1 - students;
+		const isClassNotAvailable = newAvailableClassCount <= 0;
+
 		const item = {
 			id: nanoid(),
 			program,
 			students,
-			date: formatedStartDate,
+			date: formattedStartDate,
 			price: 15
 		};
-		dispatch(addToBasket(item));
-		e.preventDefault();
-		console.log('data', item);
+
+		if (classIsThere && !classIsThere.isNotAvailable) {
+			dispatch(addToBasket(item));
+			const updateClass = {
+				...classIsThere,
+				isNotAvailable: isClassNotAvailable,
+				availableClassCount: newAvailableClassCount
+			};
+			dispatch(updateAvailability(updateClass));
+			setNotAvailability((prev) =>
+				prev.map((availItem) => (availItem.id === updateClass.id ? updateClass : availItem))
+			);
+		} else {
+			dispatch(addToBasket(item));
+			setNotAvailability((prev) => [ ...prev, item ]);
+			dispatch(
+				addToDate({
+					id: nanoid(),
+					date: formattedStartDate,
+					program,
+					availableClassCount: newAvailableClassCount,
+					isNotAvailable: isClassNotAvailable
+				})
+			);
+		}
 	};
 
 	const isWeekendOrWednesdayOrPast = (date) => {
-		// Disable Saturdays (6), Sundays (0), Wednesdays (3), and dates before today
-		return date.getDay() === 0 || date.getDay() === 6 || date.getDay() === 3 || date < new Date();
+		const currentDate = new Date();
+		const dayOfWeek = date.getDay();
+		return (
+			date < currentDate ||
+			(dayOfWeek === 0 || dayOfWeek === 6 || dayOfWeek === 3) ||
+			notAvailability.some(
+				(item) =>
+					item.program === program &&
+					format(new Date(item.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') &&
+					item.isNotAvailable
+			)
+		);
 	};
 
 	return (
@@ -52,9 +149,9 @@ function Booking() {
 					<div className="flex flex-col w-96 sm:w-full md:w-full">
 						<Box sx={{ minWidth: 120 }}>
 							<FormControl fullWidth>
-								<InputLabel id="demo-simple-select-label">Select program...</InputLabel>
+								<InputLabel id="program-label">Select program...</InputLabel>
 								<Select
-									labelId="program"
+									labelId="program-label"
 									id="program"
 									value={program}
 									onChange={(e) => setProgram(e.target.value)}
@@ -71,21 +168,22 @@ function Booking() {
 					<div className="flex flex-col w-96 sm:mt-6 md:mt-6 sm:w-full md:w-full">
 						<Box sx={{ minWidth: 120 }}>
 							<FormControl fullWidth>
-								<InputLabel id="demo-simple-select-label">Qty.</InputLabel>
+								<InputLabel id="students-label">Qty.</InputLabel>
 								<Select
-									labelId="students"
+									labelId="students-label"
 									id="students"
 									value={students}
 									onChange={(e) => setStudents(e.target.value)}
 									label="Count"
 								>
-									<MenuItem value="1">1</MenuItem>
-									<MenuItem value="2">2</MenuItem>
-									<MenuItem value="3">3</MenuItem>
+									<MenuItem value={1}>1</MenuItem>
+									<MenuItem value={2}>2</MenuItem>
+									<MenuItem value={3}>3</MenuItem>
 								</Select>
 							</FormControl>
 						</Box>
 					</div>
+
 					<div className="sm:mt-6 md:mt-6 sm:w-full md:w-full">
 						<LocalizationProvider dateAdapter={AdapterDateFns}>
 							<DatePicker
