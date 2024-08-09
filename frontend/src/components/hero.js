@@ -1,38 +1,23 @@
-import backgroundImage from '../img/hero-bg.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import React from 'react';
 
 function Hero() {
-	const containerStyle = {
-		backgroundImage: `url(${backgroundImage})`
-	};
-
 	return (
-		<div data-aos="zoom-in">
-			<section id="hero" className="flex flex-row " style={{ ...containerStyle, height: '100%' }}>
-				<div className="w-full h-full  sm:hidden md:hidden lg:hidden">
-					<img src="/img/cake.png" alt="cake" className="scale-130 w-full h-full object-cover" />
-				</div>
-				<div className="pl-[72px] pr-[127px] flex flex-col items-center justify-center ">
-					<h1
-						data-aos="fade-down"
-						data-aos-delay="900"
-						className="font-bold text-7xl font-Nunito uppercase text-dark-blue leading-[90px]"
-					>
-						B<span className="text-pink">a</span>k<span className="text-pink">e</span> with us !
-					</h1>
-					<p
-						data-aos="fade-down"
-						data-aos-delay="1100"
-						className="mt-[30px] mb-[56px] font-normal text-xl font-Nunito text-very-dark-blue leading-relaxed  text-center"
-					>
-						Embark on a delectable journey of culinary mastery as you unlock the secrets of baking and
-						discover the artistry that lies within each delicious creation at our renowned baking school.
-					</p>
-					<div />
-				</div>
-			</section>
-		</div>
+		<section id="hero" className="flex flex-col xl:flex-row xl:justify-center xl:items-center justify-center items-center mt-4 xl:flex-1">
+			<div className="flex flex-col items-center justify-center px-8 sm:px-8 md:px-8 lg:px-16 xl:px-8 xl:w-[60%]">
+				<h1 className="font-bold text-6xl xl:text-9xl  uppercase text-[#313957] leading-[70px] text-center font-Nunito xl:text-left">
+					Bake with us!
+				</h1>
+				<p className="mt-8 mb-14 text-xl text-[#798DD8] text-opacity-50 leading-relaxed text-center font-Nunito xl:text-left">
+					Embark on a delectable journey of culinary mastery as you unlock the secrets of baking and
+					discover the artistry that lies within each delicious creation at our renowned baking school.
+				</p>
+			</div>
+			<img
+				src="/img/turn-bg.png"
+				alt="Background of a baking scene"
+				className="rotate-[-55deg] xl:rotate-[45deg] xl:w-[40%] xl:mt-[-130px] mt-[-230px] md:mt-[-270px] lg:mt-[-330px] right-[50px] object-cover filter opacity-80 z-10"
+			/>
+		</section>
 	);
 }
 

@@ -1,28 +1,32 @@
+import React from 'react';
 import { data } from '../data/data';
 import Program from './program';
 
-
-function Programs({ screenSize }) {
-	
+function Programs({ screenSize, setOverlay, setDetails, setProgramName }) {
 	return (
-		<section   id="programs" className="bg-midium-blue py-12 px-[154px] grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-3 xl:gap-y-8 xl:justify-items-center xl:gap-x-8 2xl:gap-x-8 3xl:gap-x-8 lg:gap-x-8 sm:px-[47px] md:px-[47px]">
-			{data?.map((item, index) => {
-				let colSpan = 'col-span-1';
-
-				if (screenSize === 'xl' && index === 2) {
-					colSpan = 'col-span-2';
-				} else if (screenSize === 'sm') {
-					colSpan = 'col-span-1';
-				}
-
-				return (
-					<div key={item.id} className={colSpan}>
-						<Program name={item.name} description={item.description} price={item.price} />
-					</div>
-				);
-			})}
+		<section
+			id="programs"
+			className="lg:py-12 lg:px-16 xl:px-8 mt-16 px-8 mb-10 xl:mb-8 grid grid-cols-1 gap-y-8 gap-x-8 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-8 2xl:gap-x-8 3xl:gap-x-8"
+		>
+			{data?.map((item, index) => (
+				<div
+					key={item.id}
+					className={`flex flex-col ${index === 2 ? 'lg:col-span-2  xl:col-span-1 ' : ''
+						}`}
+				>
+					<Program
+						name={item.name}
+						description={item.description}
+						price={item.price}
+						setOverlay={setOverlay}
+						setDetails={setDetails}
+						setProgramName={setProgramName}
+					/>
+				</div>
+			))}
 		</section>
 	);
 }
 
 export default Programs;
+

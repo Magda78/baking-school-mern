@@ -16,10 +16,10 @@ import { selectItems, selectIsFetched } from '../store/availabilitiesSlice';
 import { format } from 'date-fns';
 
 function Booking() {
-	const [ selectedDate, setSelectedDate ] = useState(null);
-	const [ notAvailability, setNotAvailability ] = useState([]);
-	const [ program, setProgram ] = useState('Kids Program');
-	const [ students, setStudents ] = useState(0);
+	const [selectedDate, setSelectedDate] = useState(null);
+	const [notAvailability, setNotAvailability] = useState([]);
+	const [program, setProgram] = useState('Kids Program');
+	const [students, setStudents] = useState(0);
 	const dispatch = useDispatch();
 	const availabilitiesData = useSelector(selectItems);
 	const isFetched = useSelector(selectIsFetched);
@@ -73,7 +73,7 @@ function Booking() {
 				};
 			}
 		},
-		[ dispatch, isFetched ]
+		[dispatch, isFetched]
 	);
 
 	const handleDateChange = (date) => {
@@ -96,7 +96,7 @@ function Booking() {
 		const item = {
 			id: nanoid(),
 			program,
-			students,
+			students: 1,
 			date: formattedStartDate,
 			price: 15
 		};
@@ -114,7 +114,7 @@ function Booking() {
 			);
 		} else {
 			dispatch(addToBasket(item));
-			setNotAvailability((prev) => [ ...prev, item ]);
+			setNotAvailability((prev) => [...prev, item]);
 			dispatch(
 				addToDate({
 					id: nanoid(),
@@ -143,48 +143,33 @@ function Booking() {
 	};
 
 	return (
-		<section className="px-[47px] py-[48px]">
-			<form className="flex flex-col justify-between" onSubmit={addToCartHandler}>
-				<div className="flex flex-row justify-between mb-[50px] sm:flex-col md:flex-col">
-					<div className="flex flex-col w-96 sm:w-full md:w-full">
+		<section className="lg:px-16 px-8 w-full -mt-40  md:-mt-64 lg:mt-16 xl:px-8 xl:mt-2">
+
+			<form className="flex flex-col xl:flex-row justify-between z-30 relative" onSubmit={addToCartHandler}>
+				<div className="flex  justify-between mb-[50px] flex-col xl:flex-row xl:items-center xl:mb-[0] xl:w-[80%]">
+					<div className="flex flex-col xl:w-[40%]">
 						<Box sx={{ minWidth: 120 }}>
 							<FormControl fullWidth>
 								<InputLabel id="program-label">Select program...</InputLabel>
 								<Select
+									className="text-[#929292]"
 									labelId="program-label"
 									id="program"
 									value={program}
 									onChange={(e) => setProgram(e.target.value)}
 									label="Choose a Program..."
 								>
-									<MenuItem value="Kids Program">Kids Program</MenuItem>
-									<MenuItem value="Teens Program">Teens Program</MenuItem>
-									<MenuItem value="Adult Program">Adult Program</MenuItem>
+									<MenuItem value="Kids Program" className="text-[#929292]">Kids Program</MenuItem>
+									<MenuItem value="Teens Program" className="text-[#929292]">Teens Program</MenuItem>
+									<MenuItem value="Adult Program" className="text-[#929292]">Adult Program</MenuItem>
 								</Select>
 							</FormControl>
 						</Box>
 					</div>
 
-					<div className="flex flex-col w-96 sm:mt-6 md:mt-6 sm:w-full md:w-full">
-						<Box sx={{ minWidth: 120 }}>
-							<FormControl fullWidth>
-								<InputLabel id="students-label">Qty.</InputLabel>
-								<Select
-									labelId="students-label"
-									id="students"
-									value={students}
-									onChange={(e) => setStudents(e.target.value)}
-									label="Count"
-								>
-									<MenuItem value={1}>1</MenuItem>
-									<MenuItem value={2}>2</MenuItem>
-									<MenuItem value={3}>3</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-					</div>
 
-					<div className="sm:mt-6 md:mt-6 sm:w-full md:w-full">
+
+					<div className="mt-6 xl:mt-[0] xl:w-[40%]">
 						<LocalizationProvider dateAdapter={AdapterDateFns}>
 							<DatePicker
 								label="Select Date"
@@ -197,7 +182,7 @@ function Booking() {
 					</div>
 				</div>
 
-				<div className="flex justify-end">
+				<div className="flex justify-start">
 					<button
 						type="submit"
 						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink transition-transform transform duration-300  hover:scale-110"
@@ -206,6 +191,9 @@ function Booking() {
 					</button>
 				</div>
 			</form>
+			<div className='absolute top-0 right-0  w-full h-[100%] z-20'>
+
+			</div>
 		</section>
 	);
 }

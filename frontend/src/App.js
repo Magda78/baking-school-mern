@@ -7,33 +7,43 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import LogIn from './components/logIn';
 import SignUp from './components/signUp';
 import Cart from './components/cart';
+import ProgramDetails from './components/program-details';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function App() {
-	const [ screenSize, setScreenSize ] = useState('');
-	const [ navbar, setNavbar ] = useState(false);
-	const [ overlay, setOverlay ] = useState(false);
-	const [ sign, setSign ] = useState(false);
-	const [ login, setLogin ] = useState(false);
-	const [ cart, setCart ] = useState(false);
+	const [screenSize, setScreenSize] = useState(getInitialScreenSize());
+	const [navbar, setNavbar] = useState(false);
+	const [overlay, setOverlay] = useState(false);
+	const [sign, setSign] = useState(false);
+	const [login, setLogin] = useState(false);
+	const [cart, setCart] = useState(false);
+	const [details, setDetails] = useState(false);
+	const [programName, setProgramName] = useState("")
+
+	function getInitialScreenSize() {
+		const width = window.innerWidth;
+		if (width <= 640) {
+			return 'sm';
+		} else if (width <= 768) {
+			return 'md';
+		} else if (width <= 1024) {
+			return 'lg';
+		} else if (width <= 1280) {
+			return 'xl';
+		} else {
+			return '2xl';
+		}
+	}
 
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth <= 640) {
-				setScreenSize('sm');
-			} else if (640 < window.innerWidth && window.innerWidth <= 768) {
-				setScreenSize('md');
-			} else if (768 < window.innerWidth && window.innerWidth <= 1024) {
-				setScreenSize('lg');
-			} else if (1024 < window.innerWidth && window.innerWidth <= 1280) {
-				setScreenSize('xl');
-			} else if (1280 < window.innerWidth && window.innerWidth <= 1440) {
-				setScreenSize('2xl');
-			}
+			setScreenSize(getInitialScreenSize());
 		};
-		handleResize();
+
 		window.addEventListener('resize', handleResize);
+
+		// Clean up the event listener
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
@@ -43,10 +53,10 @@ function App() {
 		duration: 1000,
 		offset: 0
 	});
-
+	{ console.log("screen size>>>>>>>>>", screenSize) }
 	return (
-		<div className="max-w-[1440px] min-h-screen flex flex-col justify-center items-center">
-			<div className="  w-full relative flex flex-col justify-center items-center ">
+		<div className="min-h-screen flex flex-col justify-center items-center overflow-hidden max-w-7xl  mx-auto">
+			<div className="  w-full  mx-auto relative flex flex-col justify-center items-center ">
 				<BrowserRouter>
 					<Navbar
 						screenSize={screenSize}
@@ -55,55 +65,43 @@ function App() {
 						setSign={setSign}
 						setCart={setCart}
 						setLogin={setLogin}
+						navbar={navbar}
 					/>
 					<Routes>
-						<Route path="/" element={<Home screenSize={screenSize} />} />
+						<Route path="/" element={<Home screenSize={screenSize} setDetails={setDetails} setOverlay={setOverlay} setProgramName={setProgramName} />} />
 						<Route path="/auth" element={<Auth />} />
 					</Routes>
 					<Footer />
-					{cart && overlay ? (
-						<div className="bg-very-dark-blue absolute  bg-opacity-50 w-[100%] h-[100%]  top-[0px] right-0 flex justify-end ">
-							<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
-						</div>
-					) : (
-						<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[0px] -right-full flex justify-end ">
+					{cart && overlay && (
+						<div data-aos="fade-in"
+							className="bg-very-dark-blue absolute  bg-opacity-50 w-[100%] h-[100%]  top-[0px] right-0 flex justify-end z-50">
 							<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
 						</div>
 					)}
 					{overlay && sign ? (
-						<div className="bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">
+						<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
 							<SignUp setOverlay={setOverlay} />
 						</div>
 					) : overlay && login ? (
-						<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10">
+						<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
 							<LogIn setOverlay={setOverlay} />
 						</div>
 					) : null}
-					{navbar ? (
-						<div className="bg-white w-[85%] h-screen py-[45px] pr-[127px]  absolute top-[140px] right-0 flex flex-col items-end leading-6">
-							<h2 className="font-bold text-base font-Nunito uppercase text-pink cursor-pointer hover:text-light-blue">
-								Home
-							</h2>
-							<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
-								Programs
-							</h2>
-							<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
-								Galery
-							</h2>
-							<h2 className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue">
-								Contact Us
-							</h2>
-							<Link
-								to="/auth"
-								className="font-bold text-base font-Nunito uppercase text-dark-blue cursor-pointer hover:text-light-blue"
-							>
-								LogIn
-							</Link>
+					{navbar && overlay && (
+						<div data-aos="fade-in"
+							className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 ">
+							<Navbar setOverlay={setOverlay} overlay={overlay} />
 						</div>
-					) : null}
+					)}
+					{details && overlay && (
+						<div data-aos="fade-in"
+							className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
+							<ProgramDetails setOverlay={setOverlay} name={programName} setDetails={setDetails} setProgramName={setProgramName} />
+						</div>
+					)}
 				</BrowserRouter>
-			</div>
-		</div>
+			</div >
+		</div >
 	);
 }
 

@@ -9,12 +9,15 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		addUser: (state, action) => {
-			state.user = [ ...state.user, action.payload ];
+			state.user = [...state.user, action.payload];
+		},
+		removeUser: (state, action) => {
+			state.user = state.user.filter((item) => item.id !== action.payload)
 		}
 	}
 });
 
-export const { addUser } = userSlice.actions;
+export const { addUser, removeUser } = userSlice.actions;
 
 // Selectors - This is how we pull information from the Global store slice
 export const selectUser = (state) => state.user.user;

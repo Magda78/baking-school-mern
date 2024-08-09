@@ -50,7 +50,7 @@ function SignUp({ setOverlay }) {
 		}
 	});
 	return (
-		<section className="bg-white p-10 w-9/12 h-9/12 absolute flex justify-center items-center rounded">
+		<section data-aos="zoom-in" className="bg-white p-10 w-9/12 h-9/12 absolute flex justify-center items-center rounded z-40">
 			<div className="flex-1 mr-10 ">
 				<img src="/img/cake.png" alt="cake" className="scale-130  object-fit rounded" />
 			</div>

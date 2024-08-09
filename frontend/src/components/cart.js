@@ -13,7 +13,7 @@ function Cart({ setCart, cart }) {
 	const total = useSelector(selectTotal);
 	const basketItems = useSelector(selectItems);
 	const user = useSelector(selectUser);
-	const [ clientSecret, setClientSecret ] = useState('');
+	const [clientSecret, setClientSecret] = useState('');
 
 	const createCheckoutSession = async () => {
 		console.log(stripePromise);
@@ -43,10 +43,8 @@ function Cart({ setCart, cart }) {
 	};
 
 	return (
-		<section
-			className={` top-0  w-[40%] h-screen bg-white p-10 flex flex-col z-20 fixed transform ${cart
-				? 'translate-x-0'
-				: 'translate-x-full'} transition-transform duration-300 ease-in-out `}
+		<section data-aos={cart ? "fade-left" : "fade-in"}
+			className={` top-0  w-[40%] h-screen bg-white p-10 flex flex-col z-20 fixed `}
 		>
 			<div className="flex justify-end cursor-pointer mb-10">
 				<CloseOutlinedIcon
