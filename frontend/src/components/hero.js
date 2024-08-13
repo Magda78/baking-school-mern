@@ -3,7 +3,7 @@ import React from 'react';
 function Hero() {
 	return (
 		<section id="hero" className="flex flex-col xl:flex-row xl:justify-center xl:items-center justify-center items-center mt-4 xl:flex-1">
-			<div className="flex flex-col items-center justify-center px-8 sm:px-8 md:px-8 lg:px-16 xl:px-8 xl:w-[60%]">
+			<div className="flex flex-col items-center justify-center px-8 md:px-16 xl:w-[60%]">
 				<h1 className="font-bold text-6xl xl:text-9xl  uppercase text-[#313957] leading-[70px] text-center font-Nunito xl:text-left">
 					Bake with us!
 				</h1>

@@ -8,20 +8,19 @@ import Testimonials from '../components/testimonials';
 import Contact from '../components/contact';
 import AOS from 'aos';
 
-function Home({ screenSize, setOverlay, setDetails, setProgramName }) {
+function Home({ setOverlay, setDetails, setProgramName }) {
 	useEffect(() => {
 		AOS.init();
 	}, []);
 	return (
-		<div className='w-full'>
-			<Hero screenSize={screenSize} />
+		<div className='w-full relative'>
+			<Hero />
 			<Booking />
-			<Programs screenSize={screenSize} setDetails={setDetails} setOverlay={setOverlay} setProgramName={setProgramName} />
-			<About screenSize={screenSize} />
+			<Programs setDetails={setDetails} setOverlay={setOverlay} setProgramName={setProgramName} />
+			<About />
 			<Galery />
-			<Testimonials screenSize={screenSize} />
+			<Testimonials />
 			<Contact />
-			{console.log(typeof setOverlay, typeof setProgramName)}
 		</div>
 	);
 }

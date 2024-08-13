@@ -20,6 +20,8 @@ function Booking() {
 	const [notAvailability, setNotAvailability] = useState([]);
 	const [program, setProgram] = useState('Kids Program');
 	const [students, setStudents] = useState(0);
+	const [alert, setAlert] = useState(false)
+	const [fadeOut, setFadeOut] = useState(false);
 	const dispatch = useDispatch();
 	const availabilitiesData = useSelector(selectItems);
 	const isFetched = useSelector(selectIsFetched);
@@ -76,13 +78,23 @@ function Booking() {
 		[dispatch, isFetched]
 	);
 
+	useEffect(() => {
+		if (alert) {
+			const timer = setTimeout(() => {
+				setTimeout(() => setAlert(false));
+			}, 3000);
+
+			return () => clearTimeout(timer);
+		}
+	}, [alert])
+
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
 
 	const addToCartHandler = (e) => {
 		e.preventDefault();
-
+		setAlert(true)
 		const formattedStartDate = selectedDate ? format(new Date(selectedDate), 'yyyy-MM-dd') : null;
 
 		const classIsThere = notAvailability.find((item) => {
@@ -143,7 +155,7 @@ function Booking() {
 	};
 
 	return (
-		<section className="lg:px-16 px-8 w-full -mt-40  md:-mt-64 lg:mt-16 xl:px-8 xl:mt-2">
+		<section className="lg:px-16 px-8 w-full -mt-40  md:-mt-64 lg:mt-16 md:px-16 xl:mt-2">
 
 			<form className="flex flex-col xl:flex-row justify-between z-30 relative" onSubmit={addToCartHandler}>
 				<div className="flex  justify-between mb-[50px] flex-col xl:flex-row xl:items-center xl:mb-[0] xl:w-[80%]">
@@ -185,15 +197,21 @@ function Booking() {
 				<div className="flex justify-start">
 					<button
 						type="submit"
+						disabled={!selectedDate}
 						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink transition-transform transform duration-300  hover:scale-110"
 					>
 						Schedule Class
 					</button>
 				</div>
 			</form>
-			<div className='absolute top-0 right-0  w-full h-[100%] z-20'>
+			<div className='absolute top-0 right-0  w-full h-[100%] '>
 
 			</div>
+			{alert && (
+				<div role="alert" className={`alert fixed right-0 bottom-5 z-50 transition-transform duration-200 w-[25%] ${alert ? 'animate-slideInFromRight' : 'animate-slideInToRight'}`}>
+					<span >The class was added to the cart.</span>
+				</div>
+			)}
 		</section>
 	);
 }

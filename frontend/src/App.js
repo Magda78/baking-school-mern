@@ -12,7 +12,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function App() {
-	const [screenSize, setScreenSize] = useState(getInitialScreenSize());
 	const [navbar, setNavbar] = useState(false);
 	const [overlay, setOverlay] = useState(false);
 	const [sign, setSign] = useState(false);
@@ -21,45 +20,60 @@ function App() {
 	const [details, setDetails] = useState(false);
 	const [programName, setProgramName] = useState("")
 
-	function getInitialScreenSize() {
-		const width = window.innerWidth;
-		if (width <= 640) {
-			return 'sm';
-		} else if (width <= 768) {
-			return 'md';
-		} else if (width <= 1024) {
-			return 'lg';
-		} else if (width <= 1280) {
-			return 'xl';
-		} else {
-			return '2xl';
-		}
-	}
 
 	useEffect(() => {
-		const handleResize = () => {
-			setScreenSize(getInitialScreenSize());
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		// Clean up the event listener
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
+		AOS.init({ duration: 1000, offset: 0 });
 	}, []);
 
-	AOS.init({
-		duration: 1000,
-		offset: 0
-	});
-	{ console.log("screen size>>>>>>>>>", screenSize) }
+	const modalsHandler = () => {
+		if (overlay) {
+			if (cart) {
+				return (
+					<div data-aos="fade-in"
+						className="bg-very-dark-blue absolute  bg-opacity-50 w-[100%] h-[100%]  top-[0px] right-0 flex justify-end z-50">
+						<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
+					</div>
+				)
+			}
+			if (sign) {
+				return (
+					<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
+						<SignUp setOverlay={setOverlay} />
+					</div>
+				)
+			}
+			if (login) {
+				return (
+					<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
+						<LogIn setOverlay={setOverlay} />
+					</div>
+				)
+			}
+			if (navbar) {
+				return (
+					<div data-aos="fade-in"
+						className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 ">
+						<Navbar setOverlay={setOverlay} overlay={overlay} />
+					</div>
+				)
+			}
+			if (details) {
+				return (
+					<div data-aos="fade-in"
+						className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
+						<ProgramDetails setOverlay={setOverlay} name={programName} setDetails={setDetails} setProgramName={setProgramName} />
+					</div>
+				)
+			}
+		}
+		return null
+	}
+
 	return (
 		<div className="min-h-screen flex flex-col justify-center items-center overflow-hidden max-w-7xl  mx-auto">
 			<div className="  w-full  mx-auto relative flex flex-col justify-center items-center ">
 				<BrowserRouter>
 					<Navbar
-						screenSize={screenSize}
 						setNavbar={setNavbar}
 						setOverlay={setOverlay}
 						setSign={setSign}
@@ -68,37 +82,11 @@ function App() {
 						navbar={navbar}
 					/>
 					<Routes>
-						<Route path="/" element={<Home screenSize={screenSize} setDetails={setDetails} setOverlay={setOverlay} setProgramName={setProgramName} />} />
+						<Route path="/" element={<Home setDetails={setDetails} setOverlay={setOverlay} setProgramName={setProgramName} />} />
 						<Route path="/auth" element={<Auth />} />
 					</Routes>
 					<Footer />
-					{cart && overlay && (
-						<div data-aos="fade-in"
-							className="bg-very-dark-blue absolute  bg-opacity-50 w-[100%] h-[100%]  top-[0px] right-0 flex justify-end z-50">
-							<Cart setOverlay={setOverlay} setCart={setCart} cart={cart} />
-						</div>
-					)}
-					{overlay && sign ? (
-						<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
-							<SignUp setOverlay={setOverlay} />
-						</div>
-					) : overlay && login ? (
-						<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
-							<LogIn setOverlay={setOverlay} />
-						</div>
-					) : null}
-					{navbar && overlay && (
-						<div data-aos="fade-in"
-							className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 ">
-							<Navbar setOverlay={setOverlay} overlay={overlay} />
-						</div>
-					)}
-					{details && overlay && (
-						<div data-aos="fade-in"
-							className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
-							<ProgramDetails setOverlay={setOverlay} name={programName} setDetails={setDetails} setProgramName={setProgramName} />
-						</div>
-					)}
+					{modalsHandler()}
 				</BrowserRouter>
 			</div >
 		</div >

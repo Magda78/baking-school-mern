@@ -6,14 +6,13 @@ function Program({ name, description, price, setDetails, setOverlay, setProgramN
 		setDetails(true);
 		setOverlay(true);
 		setProgramName(name)
-		console.log(name)
 	}
 	return (
 		<section
 			data-aos="flip-left"
 			data-aos-offset="350"
 			data-delay="200"
-			className="relative z-50 pb-[47px] px-[41px] pt-16 flex flex-col items-center rounded-[10px] bg-white border border-midium-blue flex-1 "
+			className="relative z-20 pb-[47px] px-[41px] pt-16 flex flex-col items-center rounded-[10px] bg-white border border-medium-blue flex-1 "
 		>
 			<h2 className="text-xl uppercase text-[##313957] font-Nunito font-bold mb-8">{name}</h2>
 			<p className="text-base text-[#798DD8] text-opacity-50 font-Nunito font-normal mb-8 text-center">{description}</p>
@@ -22,6 +21,7 @@ function Program({ name, description, price, setDetails, setOverlay, setProgramN
 			</p>
 			<button
 				onClick={clickHandler}
+				aria-label={`Learn more about ${name}`}
 				type="button"
 				className="  flex items-center justify-center text-pink uppercase text-bold text-sm border border-pink rounded-[10px] py-4 w-[270px] transition-transform transform duration-300 cursor-pointer hover:scale-110"
 			>

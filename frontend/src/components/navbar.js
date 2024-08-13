@@ -65,7 +65,7 @@ function Navbar({ setNavbar, setOverlay, setSign, setLogin, setCart, navbar, ove
 		<section
 			data-aos="fade-down"
 			data-aos-delay="600"
-			className="w-full z-40 sticky top-0 bg-transparent  py-12 flex flex-row items-center justify-between px-8 "
+			className="w-full z-40 sticky top-0 bg-transparent  py-12 flex flex-row items-center justify-between px-16 "
 		>
 			<div>
 				<img src="/img/logo.png" alt="logo" />

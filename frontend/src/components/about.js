@@ -8,7 +8,7 @@ function About() {
 	};
 
 	return (
-		<section className="about px-8 py-10 mt-10 w-full xl:mt-0" style={containerStyle}>
+		<section className="about px-8 md:px-16 py-10 md:py-16 mt-10 w-full xl:mt-0" style={containerStyle}>
 			<div className="flex flex-col  xl:flex-row items-center justify-center  xl:justify-between bg-gradient-to-r from-bg ">
 
 				{/* Wrap content in a div to control order */}
@@ -19,7 +19,7 @@ function About() {
 						data-aos="zoom-in"
 						data-aos-offset="350"
 						data-delay="300"
-						className="flex flex-1 xl:order-1 mb-12 xl:mb-0 xl:mr-10"
+						className="flex flex-1 xl:order-1 mb-12 xl:mb-0 md:mr-16"
 					>
 						<img src="/img/baker.png" alt="logo" className="rounded-[10px]" />
 					</div>

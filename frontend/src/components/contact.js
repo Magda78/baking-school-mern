@@ -12,7 +12,7 @@ function Contact() {
 								type="text"
 								id="userName"
 								name="userName"
-								aria-required="true"
+								required
 								aria-label="userName"
 								className="border-2 border-[#929292] border-opacity-50 rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
@@ -26,7 +26,7 @@ function Contact() {
 								type="text"
 								id="lastName"
 								name="lastName"
-								aria-required="true"
+								required
 								aria-label="lastName"
 								className="border-2 border-[#929292] border-opacity-50 rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
@@ -39,10 +39,10 @@ function Contact() {
 							</label>
 							<input
 								type="email"
-								id="Email"
-								name="Email"
-								aria-required="true"
-								aria-label="Email"
+								id="email"
+								name="email"
+								required
+								aria-label="email"
 								className="border-2 border-[#929292] border-opacity-50 rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 							/>
 						</div>
@@ -70,7 +70,7 @@ function Contact() {
 					<textarea
 						id="msg"
 						name="msg"
-						aria-required="true"
+						required
 						aria-label="username"
 						className="h-[178px] border-2 border-[#929292] border-opacity-50 rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 					/>
