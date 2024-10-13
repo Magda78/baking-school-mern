@@ -4,11 +4,8 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addUser } from '../store/userSlice';
 
-function SignUp({ setOverlay }) {
+function SignUp({ setOverlay, setSign, sign }) {
 	const dispatch = useDispatch();
-	const closeOverlayHandler = () => {
-		setOverlay(false);
-	};
 	const formik = useFormik({
 		initialValues: {
 			username: '',
@@ -150,7 +147,10 @@ function SignUp({ setOverlay }) {
 						<button
 							type="submit"
 							className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
-							onClick={closeOverlayHandler}
+							onClick={() => {
+								setSign(false);
+								setOverlay(false);
+							}}
 						>
 							Cancel
 						</button>

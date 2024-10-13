@@ -10,7 +10,7 @@ function Testimonials() {
 					testimonials.map((item, index) => (
 						<div
 							key={item.id}
-							className={`flex flex-col ${index === 2 ? 'lg:col-span-2 lg:justify-self-stretch xl:col-span-1' : 'lg:justify-self-center'
+							className={`flex flex-col ${index === 2 ? 'lg:col-span-1 ' : ''
 								}`}
 						>
 							<Testimonial name={item.name} description={item.description} img={item.img} />

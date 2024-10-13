@@ -65,7 +65,7 @@ function Navbar({ setNavbar, setOverlay, setSign, setLogin, setCart, navbar, ove
 		<section
 			data-aos="fade-down"
 			data-aos-delay="600"
-			className="w-full z-40 sticky top-0 bg-transparent  py-12 flex flex-row items-center justify-between px-16 "
+			className="w-full z-40 sticky top-0 bg-transparent  py-12 flex flex-row items-center justify-between pl-8 pr-0 lg:pl-16 lg:pr-8 "
 		>
 			<div>
 				<img src="/img/logo.png" alt="logo" />
@@ -147,39 +147,26 @@ function Navbar({ setNavbar, setOverlay, setSign, setLogin, setCart, navbar, ove
 						Log Out
 					</button>
 				) : (
-					<div
-						className="relative"
-						onMouseEnter={mouseEnterHandler}
-						onMouseLeave={mouseLeaveHandler}
-					>
-						<PersonOutlineOutlinedIcon className="font-bold text-sm text-[#929292] cursor-pointer hover:text-light-blue" />
-						{hover && (
-							<div
-								data-aos="flip-left"
-								className="absolute top-0 right-0 pt-8 flex flex-col justify-center items-end"
-								onMouseEnter={mouseEnterHandler}
-								onMouseLeave={mouseLeaveHandler}
-							>
-								<p
-									onClick={overlayHandlerLogIn}
-									className="font-bold text-sm font-Nunito uppercase text-[#929292] cursor-pointer hover:text-light-blue mb-1"
-								>
-									Log In
-								</p>
-								<p
-									onClick={overlayHandlerSignUp}
-									className="font-bold text-sm font-Nunito uppercase text-[#929292] cursor-pointer hover:text-light-blue"
-								>
-									Sign Up
-								</p>
-							</div>
-						)}
-					</div>
+
+					<>
+						<button
+							onClick={overlayHandlerLogIn}
+							className="font-bold text-sm font-Nunito uppercase text-[#929292] cursor-pointer hover:text-light-blue mb-1"
+						>
+							Log In
+						</button>
+						<button
+							onClick={overlayHandlerSignUp}
+							className="font-bold text-sm font-Nunito uppercase text-[#929292] cursor-pointer hover:text-light-blue"
+						>
+							Sign Up
+						</button>
+					</>
 				)}
 			</div>
 
 			{/* Mobile Menu Icon */}
-			<div className="sm:inline md:inline lg:inline xl:hidden sm:px-8 md:px-8 lg:pl-16 lg:pr-8">
+			<div className="sm:inline md:inline lg:inline xl:hidden px-8  lg:pl-16 lg:pr-8">
 				{hamburger ? (
 					<MenuOutlinedIcon
 						className="font-bold text-sm text-[#798DD8] cursor-pointer hover:text-light-blue"

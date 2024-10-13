@@ -63,7 +63,7 @@ function Contact() {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col w-[518px] justify-center sm:w-full">
+				<div className="flex flex-col  justify-center w-full">
 					<label htmlFor="msg" className="font-bold text-base font-Nunito text-[#313957] mb-4">
 						Message:
 					</label>
@@ -75,7 +75,7 @@ function Contact() {
 						className="h-[178px] border-2 border-[#929292] border-opacity-50 rounded mb-8 text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue"
 					/>
 				</div>
-				<div className="w-[518px] flex flex-row justify-end sm:w-full">
+				<div className="flex flex-row justify-end w-full">
 					<button
 						type="submit"
 						className="font-bold text-sm font-Nunito py-4 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink cursor-pointer transition-transform transform duration-300  hover:scale-110"

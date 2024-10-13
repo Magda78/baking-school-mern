@@ -10,7 +10,7 @@ function Testimonial({ name, description }) {
 		>
 			<h2 className="text-base  text-[#929292]  font-Nunito font-normal mb-8 text-center">
 				<Icon icon="ri:double-quotes-l" className="inline-block mr-2 text-[#798DD8]" />
-				<span className='text-[#313957]'>{description}</span>
+				<span className='text-[#929292]'>{description}</span>
 				<Icon icon="ri:double-quotes-r" className="inline-block ml-2 text-[#798DD8]" />
 			</h2>
 			<div className="flex flex-row items-center justify-center mb-8">

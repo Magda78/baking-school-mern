@@ -38,14 +38,14 @@ function App() {
 			if (sign) {
 				return (
 					<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
-						<SignUp setOverlay={setOverlay} />
+						<SignUp setOverlay={setOverlay} setSign={setSign} sign={sign} />
 					</div>
 				)
 			}
 			if (login) {
 				return (
 					<div className=" bg-very-dark-blue bg-opacity-50 w-[100%] h-[100%] absolute top-[175px] right-0 flex justify-center pt-10 z-50">
-						<LogIn setOverlay={setOverlay} />
+						<LogIn setOverlay={setOverlay} setLogin={setLogin} login={login} />
 					</div>
 				)
 			}

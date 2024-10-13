@@ -5,11 +5,12 @@ import { nanoid } from 'nanoid';
 import { addUser } from '../store/userSlice';
 import { useDispatch } from 'react-redux';
 
-function LogIn({ setOverlay }) {
+function LogIn({ setOverlay, setLogin }) {
 	const [data, setData] = useState();
 	const dispatch = useDispatch();
 	const closeOverlayHandler = () => {
 		setOverlay(false);
+		setLogin(false);
 	};
 	const formik = useFormik({
 		initialValues: {
@@ -32,9 +33,14 @@ function LogIn({ setOverlay }) {
 						password: values.password
 					})
 				});
+
+				if (!response.ok) {
+					throw new Error('Login failed');
+				}
+
 				const responseData = await response.json();
 				setData(responseData);
-				console.log(responseData);
+
 				const user = {
 					id: nanoid(),
 					email: values.email
@@ -62,11 +68,10 @@ function LogIn({ setOverlay }) {
 							id="email"
 							name="email"
 							aria-required="true"
-							aria-label="email"
 							onChange={formik.handleChange}
 							onBlur={formik.handleBlur}
 							value={formik.values.email}
-							className={`${formik.errors.username
+							className={`${formik.errors.email
 								? 'mb-2'
 								: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 						/>
@@ -83,11 +88,10 @@ function LogIn({ setOverlay }) {
 							id="password"
 							name="password"
 							aria-required="true"
-							aria-label="password"
 							onChange={formik.handleChange}
 							onBlur={formik.handleBlur}
 							value={formik.values.password}
-							className={`${formik.errors.username
+							className={`${formik.errors.password
 								? 'mb-2'
 								: 'mb-4'} border-2 border-grayish rounded  text-base px-4 py-2 outline-none text-very-dark-blue focus:border-light-blue`}
 						/>
@@ -103,9 +107,12 @@ function LogIn({ setOverlay }) {
 							LogIn
 						</button>
 						<button
-							type="submit"
+							type="button"
 							className="font-bold text-base font-Nunito py-2.5 px-4 bg-pink uppercase text-white rounded-[10px] hover:bg-light-pink"
-							onClick={closeOverlayHandler}
+							onClick={() => {
+								setLogin(false);
+								setOverlay(false);
+							}}
 						>
 							Cancel
 						</button>

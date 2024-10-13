@@ -57,13 +57,17 @@ const webhookController = async (req, res) => {
 				const selectedDate = new Date(item.date);
 				const toUtc = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
 				let class_date = toUtc.toISOString();
-				let availability = await Availability.findOne({ date: class_date });
+				let availability = await Availability.findOne({ date: class_date, program: item.program });
+				const availableClassCount = 1 - 1;
+				const isNotAvailable = availableClassCount <= 0;
+				console.log('isNotAvailable===========', isNotAvailable)
+				console.log('availibility===========', availability)
 				try {
 					if (!availability) {
 						availability = new Availability({
 							date: class_date,
-							availableClassCount: 1 - 1,
-							isNotAvailable: false,
+							availableClassCount: availableClassCount,
+							isNotAvailable: isNotAvailable,
 							program: item.program
 						});
 						console.log('Availability created:', availability);
@@ -114,7 +118,7 @@ const webhookController = async (req, res) => {
 				}
 				const auth = new google.auth.GoogleAuth({
 					keyFile: 'service-key.json',
-					scopes: [ 'https://www.googleapis.com/auth/calendar' ]
+					scopes: ['https://www.googleapis.com/auth/calendar']
 				});
 				// Obtain an OAuth2 client instance
 				const authClient = await auth.getClient();
